@@ -1,0 +1,116 @@
+'use client'
+
+import { useThemeConfig } from '../themes/theme-active'
+import { Label } from '../ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
+
+const DEFAULT_THEMES = [
+  {
+    name: 'Zinza',
+    value: 'default',
+  },
+  {
+    name: 'Azul',
+    value: 'blue',
+  },
+  {
+    name: 'Verde',
+    value: 'green',
+  },
+  {
+    name: 'Laranja',
+    value: 'amber',
+  },
+  {
+    name: 'Rosa',
+    value: 'pink',
+  },
+  {
+    name: 'Lilás',
+    value: 'purple',
+  },
+]
+
+const SCALED_THEMES = [
+  {
+    name: 'Padrão',
+    value: 'default-scaled',
+  },
+  {
+    name: 'Pequeno',
+    value: 'blue-scaled',
+  },
+]
+
+const MONO_THEMES = [
+  {
+    name: 'Mono',
+    value: 'mono-scaled',
+  },
+]
+
+export function ThemeSelector() {
+  const { activeTheme, setActiveTheme } = useThemeConfig()
+
+  return (
+    <div className="flex items-center gap-2">
+      <Label htmlFor="theme-selector" className="sr-only">
+        Theme
+      </Label>
+
+      <Select value={activeTheme} onValueChange={setActiveTheme}>
+        <SelectTrigger
+          id="theme-selector"
+          size="sm"
+          className="justify-start bg-zinc-300/70 *:data-[slot=select-value]:w-12"
+        >
+          <span className="text-muted-foreground hidden sm:block">
+            Selecione o tema:
+          </span>
+          <span className="text-muted-foreground block sm:hidden">Tema:</span>
+          <SelectValue placeholder="Select a theme" />
+        </SelectTrigger>
+
+        <SelectContent align="end">
+          <SelectGroup>
+            <SelectLabel>Cores</SelectLabel>
+            {DEFAULT_THEMES.map(theme => (
+              <SelectItem key={theme.name} value={theme.value}>
+                {theme.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+
+          <SelectSeparator />
+
+          <SelectGroup>
+            <SelectLabel>Tamanho</SelectLabel>
+            {SCALED_THEMES.map(theme => (
+              <SelectItem key={theme.name} value={theme.value}>
+                {theme.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+
+          <SelectGroup>
+            <SelectLabel>Monospaced</SelectLabel>
+            {MONO_THEMES.map(theme => (
+              <SelectItem key={theme.name} value={theme.value}>
+                {theme.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
+  )
+}
