@@ -230,20 +230,20 @@ export default function SignInPage() {
       <section className="bg-muted/30 py-12">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-8 text-sm">
-              <div className="flex items-center gap-2">
+            <div className="text-muted-foreground grid grid-cols-2 gap-8 text-sm sm:grid-cols-4">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <Shield className="h-4 w-4 text-green-500" />
-                Certificação ISO 27001
+                Certif. ISO 27001
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <Lock className="h-4 w-4 text-blue-500" />
-                Criptografia AES-256
+                Criptografia JWT
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <Globe className="h-4 w-4 text-purple-500" />
                 LGPD Compliance
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <Clock className="h-4 w-4 text-orange-500" />
                 Uptime 99.9%
               </div>
