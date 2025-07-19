@@ -2,6 +2,7 @@ import { Header } from '@/components/layout/header'
 import { ActiveThemeProvider } from '@/components/themes/theme-active'
 import { ThemeProvider } from '@/components/themes/theme-provider'
 import { TanStackProviders } from '@/components/ui/query-provider'
+import { WelcomeBanner } from '@/components/ui/welcome'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import { inter, ptSansCaption } from '@/utils/fonts'
@@ -97,7 +98,10 @@ export default async function RootLayout({
           <ActiveThemeProvider initialTheme={activeThemeValue}>
             <Header />
             <main className="ls:px-8 mx-auto mt-16 flex max-w-7xl flex-1 flex-col border-r border-l px-4 sm:px-6">
-              <TanStackProviders>{children}</TanStackProviders>
+              <TanStackProviders>
+                <WelcomeBanner />
+                {children}
+              </TanStackProviders>
             </main>
           </ActiveThemeProvider>
         </ThemeProvider>
