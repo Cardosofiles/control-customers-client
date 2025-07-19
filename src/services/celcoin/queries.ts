@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { Customer } from './types'
+import type { Address, Customer } from './types'
 
 // Mock data storage para simular operações CRUD
 // eslint-disable-next-line prefer-const
@@ -99,6 +99,68 @@ export const mockDataOperations = {
       const deletedCustomer = mockCustomers[index]
       mockCustomers.splice(index, 1)
       return deletedCustomer
+    }
+    return null
+  },
+
+  // Operações de endereço
+  addAddress: (
+    customerId: string,
+    addressData: Partial<Address>
+  ): Address | null => {
+    const customerIndex = mockCustomers.findIndex(c => c.id === customerId)
+    if (customerIndex !== -1) {
+      const newAddress: Address = {
+        id: Date.now().toString(),
+        street: addressData.street || '',
+        number: addressData.number || '',
+        neighborhood: addressData.neighborhood || '',
+        city: addressData.city || '',
+        state: addressData.state || '',
+        zipcode: addressData.zipcode || '',
+      }
+      mockCustomers[customerIndex].addresses.push(newAddress)
+      mockCustomers[customerIndex].updatedAt = new Date().toISOString()
+      return newAddress
+    }
+    return null
+  },
+
+  updateAddress: (
+    customerId: string,
+    addressId: string,
+    data: Partial<Address>
+  ): Address | null => {
+    const customerIndex = mockCustomers.findIndex(c => c.id === customerId)
+    if (customerIndex !== -1) {
+      const addressIndex = mockCustomers[customerIndex].addresses.findIndex(
+        a => a.id === addressId
+      )
+      if (addressIndex !== -1) {
+        mockCustomers[customerIndex].addresses[addressIndex] = {
+          ...mockCustomers[customerIndex].addresses[addressIndex],
+          ...data,
+        }
+        mockCustomers[customerIndex].updatedAt = new Date().toISOString()
+        return mockCustomers[customerIndex].addresses[addressIndex]
+      }
+    }
+    return null
+  },
+
+  deleteAddress: (customerId: string, addressId: string): Address | null => {
+    const customerIndex = mockCustomers.findIndex(c => c.id === customerId)
+    if (customerIndex !== -1) {
+      const addressIndex = mockCustomers[customerIndex].addresses.findIndex(
+        a => a.id === addressId
+      )
+      if (addressIndex !== -1) {
+        const deletedAddress =
+          mockCustomers[customerIndex].addresses[addressIndex]
+        mockCustomers[customerIndex].addresses.splice(addressIndex, 1)
+        mockCustomers[customerIndex].updatedAt = new Date().toISOString()
+        return deletedAddress
+      }
     }
     return null
   },

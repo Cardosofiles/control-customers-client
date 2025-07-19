@@ -1,6 +1,14 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -11,7 +19,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
+  useAddAddress,
+  useDeleteAddress,
   useDeleteCustomer,
+  useEditAddress,
   useEditCustomer,
 } from '@/services/celcoin/mutations'
 import { useListCustomers } from '@/services/celcoin/queries'
@@ -50,10 +61,34 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
   const [editingAddressData, setEditingAddressData] = useState<
     Partial<Address>
   >({})
+  const [editingAddressCustomerId, setEditingAddressCustomerId] = useState<
+    string | null
+  >(null)
+  const [addingAddressCustomerId, setAddingAddressCustomerId] = useState<
+    string | null
+  >(null)
+  const [newAddressData, setNewAddressData] = useState<Partial<Address>>({})
+
+  // Estados para controlar modais de confirmação
+  const [deleteCustomerDialog, setDeleteCustomerDialog] = useState<{
+    open: boolean
+    customerId: string | null
+    customerName: string | null
+  }>({ open: false, customerId: null, customerName: null })
+
+  const [deleteAddressDialog, setDeleteAddressDialog] = useState<{
+    open: boolean
+    customerId: string | null
+    addressId: string | null
+    addressInfo: string | null
+  }>({ open: false, customerId: null, addressId: null, addressInfo: null })
 
   const { mutateAsync: updateCustomer, isPending: isUpdating } =
     useEditCustomer(accessToken)
   const { mutateAsync: deleteCustomer } = useDeleteCustomer(accessToken)
+  const { mutateAsync: addAddress } = useAddAddress(accessToken)
+  const { mutateAsync: updateAddress } = useEditAddress(accessToken)
+  const { mutateAsync: deleteAddress } = useDeleteAddress(accessToken)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [filters, setFilters] = useState({
     id: '',
@@ -126,13 +161,22 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
     setEditData({})
   }
 
-  async function handleDelete(customerId: string) {
-    if (!confirm('Tem certeza que deseja excluir este cliente?')) return
+  function handleDelete(customerId: string) {
+    const customer = customers.find(c => c.id === customerId)
+    setDeleteCustomerDialog({
+      open: true,
+      customerId,
+      customerName: customer?.name || 'Cliente',
+    })
+  }
 
-    setDeletingId(customerId)
+  async function confirmDeleteCustomer() {
+    if (!deleteCustomerDialog.customerId) return
+
+    setDeletingId(deleteCustomerDialog.customerId)
     try {
       const result = await deleteCustomer({
-        customerId: customerId,
+        customerId: deleteCustomerDialog.customerId,
       })
 
       // Mostra toast se foi simulado localmente
@@ -146,35 +190,126 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
       toast.error('Erro ao excluir cliente')
     } finally {
       setDeletingId(null)
+      setDeleteCustomerDialog({
+        open: false,
+        customerId: null,
+        customerName: null,
+      })
     }
   }
 
-  function handleEditAddress(address: Address) {
+  function handleEditAddress(address: Address, customerId: string) {
     setEditingAddressId(address.id || '')
     setEditingAddressData(address)
+    setEditingAddressCustomerId(customerId)
   }
 
-  function handleSaveAddress() {
-    // TODO: Implement address save logic
-    console.log('Saving address:', editingAddressData)
-    setEditingAddressId(null)
-    setEditingAddressData({})
+  async function handleSaveAddress() {
+    if (!editingAddressId || !editingAddressCustomerId) return
+
+    try {
+      const result = await updateAddress({
+        customerId: editingAddressCustomerId,
+        addressId: editingAddressId,
+        data: editingAddressData,
+      })
+      setEditingAddressId(null)
+      setEditingAddressData({})
+      setEditingAddressCustomerId(null)
+
+      // Mostra toast se foi simulado localmente
+      if (result?.message?.includes('modo demo')) {
+        toast.info('Endereço editado (modo demonstração)')
+      } else {
+        toast.success('Endereço editado com sucesso!')
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar endereço:', error)
+      toast.error('Erro ao editar endereço')
+    }
   }
 
   function handleCancelAddressEdit() {
     setEditingAddressId(null)
     setEditingAddressData({})
+    setEditingAddressCustomerId(null)
   }
 
-  function handleDeleteAddress(addressId: string) {
-    if (!confirm('Tem certeza que deseja excluir este endereço?')) return
-    // TODO: Implement address deletion logic
-    console.log('Deleting address:', addressId)
+  function handleDeleteAddress(customerId: string, addressId: string) {
+    const customer = customers.find(c => c.id === customerId)
+    const address = customer?.addresses?.find(a => a.id === addressId)
+    const addressInfo = address
+      ? `${address.street}, ${address.number}`
+      : 'Endereço'
+
+    setDeleteAddressDialog({
+      open: true,
+      customerId,
+      addressId,
+      addressInfo,
+    })
+  }
+
+  async function confirmDeleteAddress() {
+    if (!deleteAddressDialog.customerId || !deleteAddressDialog.addressId)
+      return
+
+    try {
+      const result = await deleteAddress({
+        customerId: deleteAddressDialog.customerId,
+        addressId: deleteAddressDialog.addressId,
+      })
+
+      // Mostra toast se foi simulado localmente
+      if (result?.message?.includes('modo demo')) {
+        toast.info('Endereço excluído (modo demonstração)')
+      } else {
+        toast.success('Endereço excluído com sucesso!')
+      }
+    } catch (error) {
+      console.error('Erro ao deletar endereço:', error)
+      toast.error('Erro ao excluir endereço')
+    } finally {
+      setDeleteAddressDialog({
+        open: false,
+        customerId: null,
+        addressId: null,
+        addressInfo: null,
+      })
+    }
   }
 
   function handleAddAddress(customerId: string) {
-    // TODO: Implement add address logic
-    console.log('Adding address to customer:', customerId)
+    setAddingAddressCustomerId(customerId)
+    setNewAddressData({})
+  }
+
+  async function handleSaveNewAddress() {
+    if (!addingAddressCustomerId) return
+
+    try {
+      const result = await addAddress({
+        customerId: addingAddressCustomerId,
+        addressData: newAddressData,
+      })
+      setAddingAddressCustomerId(null)
+      setNewAddressData({})
+
+      // Mostra toast se foi simulado localmente
+      if (result?.message?.includes('modo demo')) {
+        toast.info('Endereço adicionado (modo demonstração)')
+      } else {
+        toast.success('Endereço adicionado com sucesso!')
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar endereço:', error)
+      toast.error('Erro ao adicionar endereço')
+    }
+  }
+
+  function handleCancelNewAddress() {
+    setAddingAddressCustomerId(null)
+    setNewAddressData({})
   }
 
   if (isLoading) {
@@ -521,7 +656,10 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
                                           size="sm"
                                           variant="outline"
                                           onClick={() =>
-                                            handleEditAddress(address)
+                                            handleEditAddress(
+                                              address,
+                                              customer.id
+                                            )
                                           }
                                         >
                                           Editar
@@ -530,7 +668,10 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
                                           size="sm"
                                           variant="destructive"
                                           onClick={() =>
-                                            handleDeleteAddress(address.id!)
+                                            handleDeleteAddress(
+                                              customer.id,
+                                              address.id!
+                                            )
                                           }
                                         >
                                           <Trash2 className="h-4 w-4" />
@@ -546,6 +687,90 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
                           <p className="text-muted-foreground text-sm">
                             Nenhum endereço cadastrado
                           </p>
+                        )}
+
+                        {/* Formulário para adicionar novo endereço */}
+                        {addingAddressCustomerId === customer.id && (
+                          <div className="border-border bg-background rounded-lg border border-dashed p-3">
+                            <h5 className="mb-3 font-medium">Novo Endereço</h5>
+                            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                              <Input
+                                placeholder="CEP"
+                                value={newAddressData.zipcode || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    zipcode: e.target.value,
+                                  })
+                                }
+                              />
+                              <Input
+                                placeholder="Rua"
+                                value={newAddressData.street || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    street: e.target.value,
+                                  })
+                                }
+                              />
+                              <Input
+                                placeholder="Número"
+                                value={newAddressData.number || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    number: e.target.value,
+                                  })
+                                }
+                              />
+                              <Input
+                                placeholder="Bairro"
+                                value={newAddressData.neighborhood || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    neighborhood: e.target.value,
+                                  })
+                                }
+                              />
+                              <Input
+                                placeholder="Cidade"
+                                value={newAddressData.city || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    city: e.target.value,
+                                  })
+                                }
+                              />
+                              <Input
+                                placeholder="Estado"
+                                value={newAddressData.state || ''}
+                                onChange={e =>
+                                  setNewAddressData({
+                                    ...newAddressData,
+                                    state: e.target.value,
+                                  })
+                                }
+                              />
+                              <div className="col-span-full flex justify-end space-x-2">
+                                <Button
+                                  size="sm"
+                                  onClick={handleSaveNewAddress}
+                                >
+                                  Adicionar
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={handleCancelNewAddress}
+                                >
+                                  Cancelar
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
                         )}
                       </div>
                     </TableCell>
@@ -563,6 +788,100 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
           Mostrando {filtered.length} de {customers.length} cliente(s)
         </p>
       </div>
+
+      {/* Modal de confirmação para excluir cliente */}
+      <Dialog
+        open={deleteCustomerDialog.open}
+        onOpenChange={open =>
+          !open &&
+          setDeleteCustomerDialog({
+            open: false,
+            customerId: null,
+            customerName: null,
+          })
+        }
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Confirmar Exclusão</DialogTitle>
+            <DialogDescription>
+              Tem certeza que deseja excluir o cliente{' '}
+              <span className="text-foreground font-medium">
+                {deleteCustomerDialog.customerName}
+              </span>
+              ? Esta ação não pode ser desfeita.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() =>
+                setDeleteCustomerDialog({
+                  open: false,
+                  customerId: null,
+                  customerName: null,
+                })
+              }
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDeleteCustomer}
+              disabled={deletingId === deleteCustomerDialog.customerId}
+            >
+              {deletingId === deleteCustomerDialog.customerId
+                ? 'Excluindo...'
+                : 'Excluir Cliente'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal de confirmação para excluir endereço */}
+      <Dialog
+        open={deleteAddressDialog.open}
+        onOpenChange={open =>
+          !open &&
+          setDeleteAddressDialog({
+            open: false,
+            customerId: null,
+            addressId: null,
+            addressInfo: null,
+          })
+        }
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Confirmar Exclusão de Endereço</DialogTitle>
+            <DialogDescription>
+              Tem certeza que deseja excluir o endereço{' '}
+              <span className="text-foreground font-medium">
+                {deleteAddressDialog.addressInfo}
+              </span>
+              ? Esta ação não pode ser desfeita.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() =>
+                setDeleteAddressDialog({
+                  open: false,
+                  customerId: null,
+                  addressId: null,
+                  addressInfo: null,
+                })
+              }
+            >
+              Cancelar
+            </Button>
+            <Button variant="destructive" onClick={confirmDeleteAddress}>
+              Excluir Endereço
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
