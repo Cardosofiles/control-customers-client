@@ -25,7 +25,7 @@ export function FeatureSection() {
             {
               icon: <Shield className="h-8 w-8" />,
               title: 'Segurança Militar',
-              description: 'Criptografia JWT e compliance LGPD/GDPR',
+              description: 'Criptografia AES-256 e compliance LGPD/GDPR',
               color: 'from-green-500 to-emerald-500',
             },
             {

@@ -148,7 +148,7 @@ export function AnalyticsDashboardPreview() {
             </CardContent>
           </Card>
 
-          {/* Métricas de Satisfação */}
+          {/* Métricas de Satisfação - Corrigida */}
           <Card className="lg:col-span-3">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -183,9 +183,7 @@ export function AnalyticsDashboardPreview() {
                       dataKey="score"
                       fill="#10b981"
                       radius={[0, 6, 6, 0]}
-                      background={{
-                        fill: 'hsl(var(--muted))',
-                      }}
+                      background={{ fill: '#e5e7eb' }}
                     />
                   </BarChart>
                 </ResponsiveContainer>
