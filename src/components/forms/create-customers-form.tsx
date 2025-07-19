@@ -9,7 +9,6 @@ import { useCreateCustomer } from '@/services/celcoin/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { Trash } from 'lucide-react'
-import { useRef } from 'react'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -71,8 +70,6 @@ interface CreateCustomerFormProps {
 }
 
 export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
-  const emailInputRef = useRef<HTMLInputElement>(null)
-
   const {
     register,
     control,

@@ -56,7 +56,7 @@ export function Testimonials() {
                 </div>
 
                 <blockquote className="text-foreground mb-6 leading-relaxed italic">
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </blockquote>
 
                 <div className="flex items-center gap-4">

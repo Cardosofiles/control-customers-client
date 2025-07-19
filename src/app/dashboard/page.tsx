@@ -19,9 +19,11 @@ export default function DashboardPage() {
         setAccessToken(token)
         setTokenError(null)
         console.log('Token obtido:', token)
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Erro ao obter token'
         setAccessToken(null)
-        setTokenError(err?.message || 'Erro ao obter token')
+        setTokenError(errorMessage)
         console.error('Erro ao obter token:', err)
       }
     }

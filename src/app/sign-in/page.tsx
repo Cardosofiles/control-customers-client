@@ -201,9 +201,10 @@ export default function SignInPage() {
               </div>
 
               <blockquote className="text-foreground mb-6 text-xl font-medium italic">
-                "Migrar para o ControlCustomers foi a melhor decisão estratégica
-                da nossa empresa. Em 6 meses, nossa eficiência operacional
-                aumentou 300% e a satisfação dos clientes disparou."
+                &ldquo;Migrar para o ControlCustomers foi a melhor decisão
+                estratégica da nossa empresa. Em 6 meses, nossa eficiência
+                operacional aumentou 300% e a satisfação dos clientes
+                disparou.&rdquo;
               </blockquote>
 
               <div className="flex items-center justify-center gap-4">

@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ControlCustomers - Sistema de Gestão de Clientes
 
-## Getting Started
+Uma plataforma moderna e intuitiva para gestão de clientes, desenvolvida com Next.js 15, React 19, TypeScript e shadcn/ui.
 
-First, run the development server:
+## 🚀 Tecnologias
+
+- **Next.js 15.4.2** - Framework React com App Router
+- **React 19** - Biblioteca para interfaces de usuário
+- **TypeScript** - Tipagem estática para JavaScript
+- **Tailwind CSS 4** - Framework CSS utilitário
+- **shadcn/ui** - Componentes UI elegantes e acessíveis
+- **TanStack Query** - Gerenciamento de estado do servidor
+- **React Hook Form** - Formulários performáticos
+- **Recharts** - Gráficos e visualizações
+- **Zod** - Validação de esquemas TypeScript
+
+## ✨ Funcionalidades
+
+- **Autenticação** - Sistema de login com validação
+- **Gestão de Clientes** - CRUD completo de clientes
+- **Gestão de Endereços** - Múltiplos endereços por cliente
+- **Dashboard Analytics** - Gráficos e métricas em tempo real
+- **Integração com CEP** - Preenchimento automático via ViaCEP
+- **API Celcoin** - Integração com serviços externos
+- **Temas** - Suporte a modo claro/escuro
+- **Responsivo** - Design adaptável para todos os dispositivos
+
+## 🛠️ Instalação
+
+1. Clone o repositório:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd control-customers-client
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Configure as variáveis de ambiente:
 
-## Learn More
+```bash
+cp .env.example .env
+```
 
-To learn more about Next.js, take a look at the following resources:
+Edite o arquivo `.env` com suas credenciais:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_USERNAME=your_demo_username
+NEXT_PUBLIC_PASSWORD=your_demo_password
+NEXT_PUBLIC_CELCOIN_CLIENT_ID=your_public_client_id
+NEXT_PUBLIC_CELCOIN_CLIENT_SECRET=your_public_client_secret
+CELCOIN_CLIENT_ID=your_actual_client_id
+CELCOIN_CLIENT_SECRET=your_actual_client_secret
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Execute o servidor de desenvolvimento:
 
-## Deploy on Vercel
+```bash
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Acesse [http://localhost:3000](http://localhost:3000)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Scripts Disponíveis
+
+```bash
+pnpm dev        # Servidor de desenvolvimento
+pnpm build      # Build de produção
+pnpm start      # Servidor de produção
+pnpm lint       # Linter ESLint
+```
+
+## 🚀 Deploy na Vercel
+
+1. Conecte seu repositório à Vercel
+2. Configure as variáveis de ambiente no painel da Vercel
+3. O deploy será feito automaticamente
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=<your-repo-url>)
+
+## 📱 Páginas
+
+- **Home** (`/`) - Landing page com apresentação da plataforma
+- **Login** (`/sign-in`) - Página de autenticação
+- **Dashboard** (`/dashboard`) - Painel principal com gestão de clientes
+
+## 🎨 Componentes
+
+O projeto utiliza uma arquitetura de componentes bem estruturada:
+
+- **UI Components** - Componentes base do shadcn/ui
+- **Forms** - Formulários com validação
+- **Layout** - Componentes de estrutura
+- **Charts** - Gráficos e visualizações
+
+## 🔧 Configuração
+
+### Tailwind CSS
+
+O projeto usa Tailwind CSS 4 com configuração personalizada para temas e variáveis CSS.
+
+### shadcn/ui
+
+Componentes configurados com o tema "new-york" e suporte a CSS variables.
+
+### TypeScript
+
+Configuração estrita para máxima segurança de tipos.
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+## 👨‍💻 Autor
+
+**Cardoso Files**
+
+- GitHub: [@cardosofiles](https://github.com/cardosofiles)
+
+---
+
+Desenvolvido com ❤️ usando Next.js e shadcn/ui
