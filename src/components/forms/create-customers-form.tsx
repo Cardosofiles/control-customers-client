@@ -148,36 +148,39 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
   }
 
   return (
-    <Card className="mx-auto max-w-3xl rounded-2xl border border-zinc-800 bg-zinc-950 shadow-xl">
+    <Card className="border-border bg-background mx-auto max-w-3xl rounded-2xl border shadow-xl">
       <CardHeader>
-        <CardTitle className="text-center text-2xl font-bold text-yellow-400">
+        <CardTitle className="text-foreground text-center text-2xl font-bold">
           Cadastrar Cliente
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-6 text-white"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Nome */}
-          <div>
-            <Label htmlFor="name">Nome completo</Label>
+          <div className="space-y-2">
+            <Label className="text-foreground" htmlFor="name">
+              Nome completo
+            </Label>
             <Input
               id="name"
               {...register('name')}
               placeholder="Nome completo"
+              className="border-input bg-background focus:border-primary focus:ring-primary"
             />
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
+              <p className="text-destructive text-sm">{errors.name.message}</p>
             )}
           </div>
 
           {/* Documento */}
-          <div>
-            <Label htmlFor="document">CPF ou CNPJ</Label>
+          <div className="space-y-2">
+            <Label className="text-foreground" htmlFor="document">
+              CPF ou CNPJ
+            </Label>
             <Input
               id="document"
               {...register('document')}
+              className="border-input bg-background focus:border-primary focus:ring-primary"
               placeholder="000.000.000-00 ou 00.000.000/0000-00"
               maxLength={18}
               onChange={e => {
@@ -187,24 +190,31 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
               }}
             />
             {errors.document && (
-              <p className="text-sm text-red-500">{errors.document.message}</p>
+              <p className="text-destructive text-sm">
+                {errors.document.message}
+              </p>
             )}
           </div>
 
           {/* E-mail */}
-          <div>
-            <Label htmlFor="email">Email</Label>
+          <div className="space-y-2">
+            <Label className="text-foreground" htmlFor="email">
+              Email
+            </Label>
             <EmailInput
               value={watch('email') || ''}
               onChange={value => setValue('email', value)}
               placeholder="usuario@email.com"
               error={errors.email?.message}
+              className="border-input bg-background focus:border-primary focus:ring-primary"
             />
           </div>
 
           {/* Telefone */}
-          <div>
-            <Label htmlFor="phone">Celular</Label>
+          <div className="space-y-2">
+            <Label className="text-foreground" htmlFor="phone">
+              Celular
+            </Label>
             <Input
               id="phone"
               {...register('phone')}
@@ -215,21 +225,24 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                 e.target.value = formatted
                 register('phone').onChange(e)
               }}
+              className="border-input bg-background focus:border-primary focus:ring-primary"
             />
             {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone.message}</p>
+              <p className="text-destructive text-sm">{errors.phone.message}</p>
             )}
           </div>
 
           {/* Endereços */}
           <div className="space-y-4">
-            <Label>Endereços</Label>
+            <Label className="text-foreground text-base font-medium">
+              Endereços
+            </Label>
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="relative space-y-4 rounded-lg border border-zinc-800 p-4"
+                className="border-border bg-card relative space-y-4 rounded-lg border p-4 shadow-sm"
               >
-                <p className="text-sm font-medium text-yellow-400">
+                <p className="text-muted-foreground text-sm font-medium">
                   Endereço {index + 1}
                 </p>
 
@@ -243,9 +256,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                       e.target.value = formatCep(e.target.value)
                       handleCepChange(e, index)
                     }}
+                    className="border-input bg-background focus:border-primary focus:ring-primary"
                   />
                   {errors.addresses?.[index]?.zipcode && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-destructive text-sm">
                       {errors.addresses[index]!.zipcode!.message}
                     </p>
                   )}
@@ -257,9 +271,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                     {...register(`addresses.${index}.street`)}
                     placeholder="Rua"
                     readOnly
+                    className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
                   />
                   {errors.addresses?.[index]?.street && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-destructive text-sm">
                       {errors.addresses[index]!.street!.message}
                     </p>
                   )}
@@ -270,9 +285,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                   <Input
                     {...register(`addresses.${index}.number`)}
                     placeholder="Número"
+                    className="border-input bg-background focus:border-primary focus:ring-primary"
                   />
                   {errors.addresses?.[index]?.number && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-destructive text-sm">
                       {errors.addresses[index]!.number!.message}
                     </p>
                   )}
@@ -284,9 +300,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                     {...register(`addresses.${index}.neighborhood`)}
                     placeholder="Bairro"
                     readOnly
+                    className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
                   />
                   {errors.addresses?.[index]?.neighborhood && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-destructive text-sm">
                       {errors.addresses[index]!.neighborhood!.message}
                     </p>
                   )}
@@ -299,9 +316,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                       {...register(`addresses.${index}.city`)}
                       placeholder="Cidade"
                       readOnly
+                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
                     />
                     {errors.addresses?.[index]?.city && (
-                      <p className="text-sm text-red-500">
+                      <p className="text-destructive text-sm">
                         {errors.addresses[index]!.city!.message}
                       </p>
                     )}
@@ -313,9 +331,10 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                       {...register(`addresses.${index}.state`)}
                       placeholder="Estado"
                       readOnly
+                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
                     />
                     {errors.addresses?.[index]?.state && (
-                      <p className="text-sm text-red-500">
+                      <p className="text-destructive text-sm">
                         {errors.addresses[index]!.state!.message}
                       </p>
                     )}
@@ -326,8 +345,9 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                 <Button
                   type="button"
                   variant="destructive"
+                  size="sm"
                   onClick={() => remove(index)}
-                  className="absolute top-2 right-2"
+                  className="absolute top-2 right-2 h-8 w-8 p-0"
                   disabled={fields.length === 1}
                 >
                   <Trash className="h-4 w-4" />
@@ -337,7 +357,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
 
             <Button
               type="button"
-              variant="secondary"
+              variant="outline"
               onClick={() =>
                 append({
                   street: '',
@@ -348,7 +368,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                   zipcode: '',
                 })
               }
-              className="w-full"
+              className="border-primary/50 text-primary hover:bg-primary/10 w-full border-dashed"
             >
               + Adicionar Endereço
             </Button>
@@ -357,7 +377,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-yellow-500 font-bold text-black hover:bg-yellow-600"
+            className="w-full font-bold"
           >
             {isSubmitting ? 'Salvando...' : 'Cadastrar Cliente'}
           </Button>

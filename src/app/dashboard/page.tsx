@@ -31,7 +31,6 @@ export default function DashboardPage() {
   return (
     <section className="relative mt-3 mb-9 space-y-3">
       <div className="space-y-2">
-        <h1>Faça o Cadastro do seu Cliente e Veja em Tempo Real</h1>
         {tokenError && (
           <p className="text-red-500">Erro ao obter token: {tokenError}</p>
         )}

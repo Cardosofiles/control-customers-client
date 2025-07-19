@@ -32,40 +32,46 @@ export function Header() {
   return (
     <header className="bg-background/95 supports-[backdrop-filters]:bg-background/60 fixed top-0 z-50 w-full border-b border-white/10 backdrop-blur">
       <div className="ls:px-8 mx-auto max-w-7xl border-r border-l px-4 sm:px-6">
-        <div className="flex h-16 items-center justify-end">
-          <div className="mr-3 flex items-center gap-2 text-xs sm:text-sm">
-            <div className="scale-90 sm:scale-100">
-              <ThemeSelector />
-            </div>
-            <div className="scale-90 sm:scale-100">
-              <ModeToggle />
-            </div>
-          </div>
+        <div className="flex h-16 items-center justify-between">
+          <h1 className="text-foreground hidden text-4xl font-bold lg:block">
+            Control<span className="text-primary">Customers</span>
+          </h1>
 
-          <Separator
-            orientation="vertical"
-            className="bg-border mx-3 h-8 w-px self-center sm:h-10"
-          />
+          <div className="flex items-center">
+            <div className="mr-3 flex items-center gap-2 text-xs sm:text-sm">
+              <div className="scale-90 sm:scale-100">
+                <ThemeSelector />
+              </div>
+              <div className="scale-90 sm:scale-100">
+                <ModeToggle />
+              </div>
+            </div>
 
-          {isLogged ? (
-            <Button
-              className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
-              onClick={handleSignOut}
-            >
-              <User className="size-3 sm:size-4" />
-              <span className="hidden sm:inline">Sair</span>
-            </Button>
-          ) : (
-            <Button
-              asChild
-              className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
-            >
-              <Link href="/sign-in" className="flex items-center gap-1">
+            <Separator
+              orientation="vertical"
+              className="bg-border mx-3 h-8 w-px self-center sm:h-10"
+            />
+
+            {isLogged ? (
+              <Button
+                className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
+                onClick={handleSignOut}
+              >
                 <User className="size-3 sm:size-4" />
-                <span className="hidden sm:inline">Fazer Login</span>
-              </Link>
-            </Button>
-          )}
+                <span className="hidden sm:inline">Sair</span>
+              </Button>
+            ) : (
+              <Button
+                asChild
+                className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
+              >
+                <Link href="/sign-in" className="flex items-center gap-1">
+                  <User className="size-3 sm:size-4" />
+                  <span className="hidden sm:inline">Fazer Login</span>
+                </Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </header>
