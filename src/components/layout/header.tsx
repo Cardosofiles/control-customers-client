@@ -58,7 +58,7 @@ export function Header() {
                 onClick={handleSignOut}
               >
                 <User className="size-3 sm:size-4" />
-                <span className="hidden sm:inline">Sair</span>
+                <span>Sair</span>
               </Button>
             ) : (
               <Button
@@ -67,7 +67,7 @@ export function Header() {
               >
                 <Link href="/sign-in" className="flex items-center gap-1">
                   <User className="size-3 sm:size-4" />
-                  <span className="hidden sm:inline">Fazer Login</span>
+                  <span>Fazer Login</span>
                 </Link>
               </Button>
             )}
