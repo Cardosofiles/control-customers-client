@@ -5,6 +5,7 @@ export async function fetchCelcoinToken() {
     const errorText = await response.text()
     throw new Error(`Erro ao obter token: ${errorText}`)
   }
+
   const data = await response.json()
   return data.access_token
 }

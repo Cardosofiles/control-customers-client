@@ -1,12 +1,5 @@
 import { NextResponse } from 'next/server'
 
-// Para usar a API Celcoin (CEL Payments):
-// 1. As credenciais de desenvolvimento já estão configuradas no .env
-// 2. Para produção, obtenha suas credenciais em 'Módulos -> Webservice -> Instalar'
-// 3. Configure no arquivo .env:
-// CELCOIN_CLIENT_ID=seu_galax_id_aqui
-// CELCOIN_CLIENT_SECRET=seu_galax_hash_aqui
-
 export async function POST() {
   const galaxId = process.env.CELCOIN_CLIENT_ID
   const galaxHash = process.env.CELCOIN_CLIENT_SECRET
@@ -31,7 +24,7 @@ export async function POST() {
 
   console.log('Request body:', {
     grant_type: 'authorization_code',
-    scope: 'customers.read customers.write plans.read plans.write...', // truncated for logging
+    scope: 'customers.read customers.write plans.read plans.write...',
   })
 
   try {
