@@ -15,7 +15,7 @@ import {
 
 const DEFAULT_THEMES = [
   {
-    name: 'Zinza',
+    name: 'Cinza',
     value: 'default',
   },
   {
