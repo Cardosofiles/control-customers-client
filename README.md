@@ -149,11 +149,6 @@ Adicione as seguintes variáveis ao arquivo `.env.local`:
 NEXT_PUBLIC_USERNAME=admin
 NEXT_PUBLIC_PASSWORD=123456
 
-# === CELCOIN API (OPCIONAL) ===
-# Caso tenha credenciais da API Celcoin, configure aqui:
-CELCOIN_CLIENT_ID=seu_client_id_aqui
-CELCOIN_CLIENT_SECRET=seu_client_secret_aqui
-
 # === CONFIGURAÇÕES PÚBLICAS ===
 # Estas podem ser expostas no frontend
 NEXT_PUBLIC_CELCOIN_CLIENT_ID=demo_client_id
