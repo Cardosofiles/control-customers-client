@@ -568,16 +568,6 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 MIT License
 
 Copyright (c) 2025 Cardoso Files
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 ```
 
 ## 👨‍💻 Autor
@@ -587,7 +577,6 @@ copies or substantial portions of the Software.
 - 🌐 **GitHub**: [@cardosofiles](https://github.com/cardosofiles)
 - 📧 **Email**: cardosofiles@exemplo.com
 - 💼 **LinkedIn**: [Cardoso Files](https://linkedin.com/in/cardosofiles)
-- 🐦 **Twitter**: [@cardosofiles](https://twitter.com/cardosofiles)
 
 ## 🙏 Agradecimentos
 
