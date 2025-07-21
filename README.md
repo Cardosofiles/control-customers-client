@@ -151,8 +151,8 @@ NEXT_PUBLIC_PASSWORD=123456
 
 # === CONFIGURAÇÕES PÚBLICAS ===
 # Estas podem ser expostas no frontend
-NEXT_PUBLIC_CELCOIN_CLIENT_ID=demo_client_id
-NEXT_PUBLIC_CELCOIN_CLIENT_SECRET=demo_client_secret
+CELCOIN_CLIENT_ID=demo_client_id
+CELCOIN_CLIENT_SECRET=demo_client_secret
 ```
 
 > **⚠️ Importante**: Sem as credenciais Celcoin, a aplicação funcionará perfeitamente com dados simulados (mock data).
