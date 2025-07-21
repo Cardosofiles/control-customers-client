@@ -1,11 +1,6 @@
-import {
-  ArrowRight,
-  Badge,
-  CheckCircle,
-  ChevronRight,
-  Sparkles,
-} from 'lucide-react'
+import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from 'lucide-react'
 import Link from 'next/link'
+import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
 export function HeroSection() {
