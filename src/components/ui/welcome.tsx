@@ -6,13 +6,53 @@ import { useEffect, useState } from 'react'
 
 export function WelcomeBanner() {
   const [visible, setVisible] = useState(false)
+  const [shouldShow, setShouldShow] = useState(false)
 
   useEffect(() => {
-    const timeout = setTimeout(() => setVisible(true), 200) // leve delay
-    return () => clearTimeout(timeout)
+    // Verifica se deve mostrar o banner baseado no cookie
+    const checkShouldShow = () => {
+      if (typeof window === 'undefined') return false
+
+      const lastShown = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('welcome-banner-last-shown='))
+        ?.split('=')[1]
+
+      if (!lastShown) {
+        // Primeira vez que o usuário acessa
+        return true
+      }
+
+      const lastShownTime = parseInt(lastShown)
+      const now = Date.now()
+      const eightHours = 8 * 60 * 60 * 1000 // 8 horas em millisegundos
+
+      // Verifica se passaram 8 horas desde a última exibição
+      return now - lastShownTime >= eightHours
+    }
+
+    const shouldShowBanner = checkShouldShow()
+    setShouldShow(shouldShowBanner)
+
+    if (shouldShowBanner) {
+      const timeout = setTimeout(() => setVisible(true), 200) // leve delay
+      return () => clearTimeout(timeout)
+    }
   }, [])
 
-  const handleClose = () => setVisible(false)
+  const handleClose = () => {
+    setVisible(false)
+
+    // Salva o timestamp atual no cookie (válido por 30 dias)
+    const now = Date.now()
+    const expiryDate = new Date(now + 30 * 24 * 60 * 60 * 1000) // 30 dias
+    document.cookie = `welcome-banner-last-shown=${now}; expires=${expiryDate.toUTCString()}; path=/`
+  }
+
+  // Se não deve mostrar, não renderiza nada
+  if (!shouldShow) {
+    return null
+  }
 
   return (
     <div

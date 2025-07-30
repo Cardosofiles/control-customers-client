@@ -388,7 +388,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                     zipcode: '',
                   })
                 }
-                className="border-primary/50 text-primary hover:bg-primary/10 w-full border-dashed"
+                className="border-primary/50 text-primary hover:bg-primary/10 w-full cursor-pointer border-dashed"
               >
                 + Adicionar Endereço
               </Button>
@@ -397,7 +397,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full font-bold"
+              className="w-full cursor-pointer font-bold"
             >
               {isSubmitting ? 'Salvando...' : 'Cadastrar Cliente'}
             </Button>
