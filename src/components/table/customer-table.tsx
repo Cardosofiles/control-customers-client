@@ -27,7 +27,13 @@ import {
 } from '@/services/celcoin/mutations'
 import { useListCustomers } from '@/services/celcoin/queries'
 import type { Address, Customer } from '@/services/celcoin/types'
-import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
+import {
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Plus,
+  Trash2,
+} from 'lucide-react'
 import React, { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -82,6 +88,12 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
     addressId: string | null
     addressInfo: string | null
   }>({ open: false, customerId: null, addressId: null, addressInfo: null })
+
+  // Estado para modal de sucesso de edição
+  const [editSuccessDialog, setEditSuccessDialog] = useState<{
+    open: boolean
+    customerName: string | null
+  }>({ open: false, customerName: null })
 
   const { mutateAsync: updateCustomer, isPending: isUpdating } =
     useEditCustomer(accessToken)
@@ -141,6 +153,10 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
         customerId: editingId,
         data: editData,
       })
+
+      // Salva o nome do cliente editado para o modal
+      const customerName = editData.name || 'Cliente'
+
       setEditingId(null)
       setEditData({})
 
@@ -150,6 +166,12 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
       } else {
         toast.success('Cliente editado com sucesso!')
       }
+
+      // Abre o modal de sucesso
+      setEditSuccessDialog({
+        open: true,
+        customerName,
+      })
     } catch (error) {
       console.error('Erro ao atualizar cliente:', error)
       toast.error('Erro ao editar cliente')
@@ -878,6 +900,49 @@ export function CustomerTable({ accessToken }: CustomerTableProps) {
             </Button>
             <Button variant="destructive" onClick={confirmDeleteAddress}>
               Excluir Endereço
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal de sucesso para edição de cliente */}
+      <Dialog
+        open={editSuccessDialog.open}
+        onOpenChange={open =>
+          !open &&
+          setEditSuccessDialog({
+            open: false,
+            customerName: null,
+          })
+        }
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/20">
+              <CheckCircle className="text-primary h-8 w-8" />
+            </div>
+            <DialogTitle className="text-primary text-xl font-semibold">
+              Cliente Atualizado com Sucesso!
+            </DialogTitle>
+            <DialogDescription className="text-center text-base">
+              As informações do cliente{' '}
+              <span className="text-foreground font-semibold">
+                {editSuccessDialog.customerName}
+              </span>{' '}
+              foram atualizadas com sucesso no sistema.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center">
+            <Button
+              onClick={() =>
+                setEditSuccessDialog({
+                  open: false,
+                  customerName: null,
+                })
+              }
+              className="bg-primary/10 w-full"
+            >
+              Continuar
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -2,7 +2,7 @@
 
 import { ThemeSelector } from '@/components/themes/theme-selector'
 import { ModeToggle } from '@/components/themes/theme-toggle'
-import { User } from 'lucide-react'
+import { LogIn, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
@@ -57,7 +57,7 @@ export function Header() {
                 className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
                 onClick={handleSignOut}
               >
-                <User className="size-3 sm:size-4" />
+                <LogOut className="size-3 sm:size-4" />
                 <span>Sair</span>
               </Button>
             ) : (
@@ -66,7 +66,7 @@ export function Header() {
                 className="ml-2 h-7 px-3 text-xs sm:h-8 sm:px-4 sm:text-sm"
               >
                 <Link href="/sign-in" className="flex items-center gap-1">
-                  <User className="size-3 sm:size-4" />
+                  <LogIn className="size-3 sm:size-4" />
                   <span>Fazer Login</span>
                 </Link>
               </Button>

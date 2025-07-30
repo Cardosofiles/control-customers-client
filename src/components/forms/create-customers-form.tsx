@@ -2,13 +2,22 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { EmailInput } from '@/components/ui/email-input'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useCreateCustomer } from '@/services/celcoin/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
-import { Trash } from 'lucide-react'
+import { CheckCircle, Trash } from 'lucide-react'
+import { useState } from 'react'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -70,6 +79,9 @@ interface CreateCustomerFormProps {
 }
 
 export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
+  const [createdCustomerName, setCreatedCustomerName] = useState('')
+
   const {
     register,
     control,
@@ -130,12 +142,18 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
     try {
       const result = await createCustomer(data)
 
+      // Salva o nome do cliente criado para o modal
+      setCreatedCustomerName(data.name)
+
       // Verifica se foi simulado localmente
       if (result?.message?.includes('modo demo')) {
         toast.info('Cliente criado (modo demonstração)')
       } else {
         toast.success('Cliente criado com sucesso!')
       }
+
+      // Abre o modal de sucesso
+      setIsSuccessModalOpen(true)
 
       reset()
     } catch (error) {
@@ -145,241 +163,277 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
   }
 
   return (
-    <Card className="border-border bg-background mx-auto max-w-3xl rounded-2xl border shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-foreground text-center text-2xl font-bold">
-          Cadastrar Cliente
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Nome */}
-          <div className="space-y-2">
-            <Label className="text-foreground" htmlFor="name">
-              Nome completo
-            </Label>
-            <Input
-              id="name"
-              {...register('name')}
-              placeholder="Nome completo"
-              className="border-input bg-background focus:border-primary focus:ring-primary"
-            />
-            {errors.name && (
-              <p className="text-destructive text-sm">{errors.name.message}</p>
-            )}
-          </div>
-
-          {/* Documento */}
-          <div className="space-y-2">
-            <Label className="text-foreground" htmlFor="document">
-              CPF ou CNPJ
-            </Label>
-            <Input
-              id="document"
-              {...register('document')}
-              className="border-input bg-background focus:border-primary focus:ring-primary"
-              placeholder="000.000.000-00 ou 00.000.000/0000-00"
-              maxLength={18}
-              onChange={e => {
-                const formatted = formatCpfCnpj(e.target.value)
-                e.target.value = formatted
-                register('document').onChange(e)
-              }}
-            />
-            {errors.document && (
-              <p className="text-destructive text-sm">
-                {errors.document.message}
-              </p>
-            )}
-          </div>
-
-          {/* E-mail */}
-          <div className="space-y-2">
-            <Label className="text-foreground" htmlFor="email">
-              Email
-            </Label>
-            <EmailInput
-              value={watch('email') || ''}
-              onChange={value => setValue('email', value)}
-              placeholder="usuario@email.com"
-              error={errors.email?.message}
-              className="border-input bg-background focus:border-primary focus:ring-primary"
-            />
-          </div>
-
-          {/* Telefone */}
-          <div className="space-y-2">
-            <Label className="text-foreground" htmlFor="phone">
-              Celular
-            </Label>
-            <Input
-              id="phone"
-              {...register('phone')}
-              placeholder="(11) 98765-4321"
-              maxLength={15}
-              onChange={e => {
-                const formatted = formatCelular(e.target.value)
-                e.target.value = formatted
-                register('phone').onChange(e)
-              }}
-              className="border-input bg-background focus:border-primary focus:ring-primary"
-            />
-            {errors.phone && (
-              <p className="text-destructive text-sm">{errors.phone.message}</p>
-            )}
-          </div>
-
-          {/* Endereços */}
-          <div className="space-y-4">
-            <Label className="text-foreground text-base font-medium">
-              Endereços
-            </Label>
-            {fields.map((field, index) => (
-              <div
-                key={field.id}
-                className="border-border bg-card relative space-y-4 rounded-lg border p-4 shadow-sm"
-              >
-                <p className="text-muted-foreground text-sm font-medium">
-                  Endereço {index + 1}
+    <>
+      <Card className="border-border bg-background mx-auto max-w-3xl rounded-2xl border shadow-xl">
+        <CardHeader>
+          <CardTitle className="text-foreground text-center text-2xl font-bold">
+            Cadastrar Cliente
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Nome */}
+            <div className="space-y-2">
+              <Label className="text-foreground" htmlFor="name">
+                Nome completo
+              </Label>
+              <Input
+                id="name"
+                {...register('name')}
+                placeholder="Nome completo"
+                className="border-input bg-background focus:border-primary focus:ring-primary"
+              />
+              {errors.name && (
+                <p className="text-destructive text-sm">
+                  {errors.name.message}
                 </p>
+              )}
+            </div>
 
-                {/* CEP */}
-                <div>
-                  <Input
-                    {...register(`addresses.${index}.zipcode`)}
-                    placeholder="CEP"
-                    maxLength={9}
-                    onChange={e => {
-                      e.target.value = formatCep(e.target.value)
-                      handleCepChange(e, index)
-                    }}
-                    className="border-input bg-background focus:border-primary focus:ring-primary"
-                  />
-                  {errors.addresses?.[index]?.zipcode && (
-                    <p className="text-destructive text-sm">
-                      {errors.addresses[index]!.zipcode!.message}
-                    </p>
-                  )}
-                </div>
+            {/* Documento */}
+            <div className="space-y-2">
+              <Label className="text-foreground" htmlFor="document">
+                CPF ou CNPJ
+              </Label>
+              <Input
+                id="document"
+                {...register('document')}
+                className="border-input bg-background focus:border-primary focus:ring-primary"
+                placeholder="000.000.000-00 ou 00.000.000/0000-00"
+                maxLength={18}
+                onChange={e => {
+                  const formatted = formatCpfCnpj(e.target.value)
+                  e.target.value = formatted
+                  register('document').onChange(e)
+                }}
+              />
+              {errors.document && (
+                <p className="text-destructive text-sm">
+                  {errors.document.message}
+                </p>
+              )}
+            </div>
 
-                {/* Rua */}
-                <div>
-                  <Input
-                    {...register(`addresses.${index}.street`)}
-                    placeholder="Rua"
-                    readOnly
-                    className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
-                  />
-                  {errors.addresses?.[index]?.street && (
-                    <p className="text-destructive text-sm">
-                      {errors.addresses[index]!.street!.message}
-                    </p>
-                  )}
-                </div>
+            {/* E-mail */}
+            <div className="space-y-2">
+              <Label className="text-foreground" htmlFor="email">
+                Email
+              </Label>
+              <EmailInput
+                value={watch('email') || ''}
+                onChange={value => setValue('email', value)}
+                placeholder="usuario@email.com"
+                error={errors.email?.message}
+                className="border-input bg-background focus:border-primary focus:ring-primary"
+              />
+            </div>
 
-                {/* Número */}
-                <div>
-                  <Input
-                    {...register(`addresses.${index}.number`)}
-                    placeholder="Número"
-                    className="border-input bg-background focus:border-primary focus:ring-primary"
-                  />
-                  {errors.addresses?.[index]?.number && (
-                    <p className="text-destructive text-sm">
-                      {errors.addresses[index]!.number!.message}
-                    </p>
-                  )}
-                </div>
+            {/* Telefone */}
+            <div className="space-y-2">
+              <Label className="text-foreground" htmlFor="phone">
+                Celular
+              </Label>
+              <Input
+                id="phone"
+                {...register('phone')}
+                placeholder="(11) 98765-4321"
+                maxLength={15}
+                onChange={e => {
+                  const formatted = formatCelular(e.target.value)
+                  e.target.value = formatted
+                  register('phone').onChange(e)
+                }}
+                className="border-input bg-background focus:border-primary focus:ring-primary"
+              />
+              {errors.phone && (
+                <p className="text-destructive text-sm">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
 
-                {/* Bairro */}
-                <div>
-                  <Input
-                    {...register(`addresses.${index}.neighborhood`)}
-                    placeholder="Bairro"
-                    readOnly
-                    className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
-                  />
-                  {errors.addresses?.[index]?.neighborhood && (
-                    <p className="text-destructive text-sm">
-                      {errors.addresses[index]!.neighborhood!.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Cidade */}
-                  <div>
-                    <Input
-                      {...register(`addresses.${index}.city`)}
-                      placeholder="Cidade"
-                      readOnly
-                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
-                    />
-                    {errors.addresses?.[index]?.city && (
-                      <p className="text-destructive text-sm">
-                        {errors.addresses[index]!.city!.message}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Estado */}
-                  <div>
-                    <Input
-                      {...register(`addresses.${index}.state`)}
-                      placeholder="Estado"
-                      readOnly
-                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
-                    />
-                    {errors.addresses?.[index]?.state && (
-                      <p className="text-destructive text-sm">
-                        {errors.addresses[index]!.state!.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Botão para remover endereço */}
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => remove(index)}
-                  className="absolute top-2 right-2 h-8 w-8 p-0"
-                  disabled={fields.length === 1}
+            {/* Endereços */}
+            <div className="space-y-4">
+              <Label className="text-foreground text-base font-medium">
+                Endereços
+              </Label>
+              {fields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="border-border bg-card relative space-y-4 rounded-lg border p-4 shadow-sm"
                 >
-                  <Trash className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
+                  <p className="text-muted-foreground text-sm font-medium">
+                    Endereço {index + 1}
+                  </p>
+
+                  {/* CEP */}
+                  <div>
+                    <Input
+                      {...register(`addresses.${index}.zipcode`)}
+                      placeholder="CEP"
+                      maxLength={9}
+                      onChange={e => {
+                        e.target.value = formatCep(e.target.value)
+                        handleCepChange(e, index)
+                      }}
+                      className="border-input bg-background focus:border-primary focus:ring-primary"
+                    />
+                    {errors.addresses?.[index]?.zipcode && (
+                      <p className="text-destructive text-sm">
+                        {errors.addresses[index]!.zipcode!.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Rua */}
+                  <div>
+                    <Input
+                      {...register(`addresses.${index}.street`)}
+                      placeholder="Rua"
+                      readOnly
+                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
+                    />
+                    {errors.addresses?.[index]?.street && (
+                      <p className="text-destructive text-sm">
+                        {errors.addresses[index]!.street!.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Número */}
+                  <div>
+                    <Input
+                      {...register(`addresses.${index}.number`)}
+                      placeholder="Número"
+                      className="border-input bg-background focus:border-primary focus:ring-primary"
+                    />
+                    {errors.addresses?.[index]?.number && (
+                      <p className="text-destructive text-sm">
+                        {errors.addresses[index]!.number!.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Bairro */}
+                  <div>
+                    <Input
+                      {...register(`addresses.${index}.neighborhood`)}
+                      placeholder="Bairro"
+                      readOnly
+                      className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
+                    />
+                    {errors.addresses?.[index]?.neighborhood && (
+                      <p className="text-destructive text-sm">
+                        {errors.addresses[index]!.neighborhood!.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Cidade */}
+                    <div>
+                      <Input
+                        {...register(`addresses.${index}.city`)}
+                        placeholder="Cidade"
+                        readOnly
+                        className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
+                      />
+                      {errors.addresses?.[index]?.city && (
+                        <p className="text-destructive text-sm">
+                          {errors.addresses[index]!.city!.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Estado */}
+                    <div>
+                      <Input
+                        {...register(`addresses.${index}.state`)}
+                        placeholder="Estado"
+                        readOnly
+                        className="border-input bg-muted/50 text-muted-foreground cursor-not-allowed"
+                      />
+                      {errors.addresses?.[index]?.state && (
+                        <p className="text-destructive text-sm">
+                          {errors.addresses[index]!.state!.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Botão para remover endereço */}
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => remove(index)}
+                    className="absolute top-2 right-2 h-8 w-8 p-0"
+                    disabled={fields.length === 1}
+                  >
+                    <Trash className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  append({
+                    street: '',
+                    number: '',
+                    neighborhood: '',
+                    city: '',
+                    state: '',
+                    zipcode: '',
+                  })
+                }
+                className="border-primary/50 text-primary hover:bg-primary/10 w-full border-dashed"
+              >
+                + Adicionar Endereço
+              </Button>
+            </div>
 
             <Button
-              type="button"
-              variant="outline"
-              onClick={() =>
-                append({
-                  street: '',
-                  number: '',
-                  neighborhood: '',
-                  city: '',
-                  state: '',
-                  zipcode: '',
-                })
-              }
-              className="border-primary/50 text-primary hover:bg-primary/10 w-full border-dashed"
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full font-bold"
             >
-              + Adicionar Endereço
+              {isSubmitting ? 'Salvando...' : 'Cadastrar Cliente'}
             </Button>
-          </div>
+          </form>
+        </CardContent>
+      </Card>
 
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full font-bold"
-          >
-            {isSubmitting ? 'Salvando...' : 'Cadastrar Cliente'}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+      {/* Modal de Sucesso */}
+      <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+            </div>
+            <DialogTitle className="text-xl font-semibold text-green-700 dark:text-green-400">
+              Cliente Cadastrado com Sucesso!
+            </DialogTitle>
+            <DialogDescription className="text-center text-base">
+              O cliente{' '}
+              <span className="text-foreground font-semibold">
+                {createdCustomerName}
+              </span>{' '}
+              foi cadastrado com sucesso no sistema. Você pode visualizá-lo na
+              tabela de clientes abaixo.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center">
+            <Button
+              onClick={() => setIsSuccessModalOpen(false)}
+              className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+            >
+              Continuar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

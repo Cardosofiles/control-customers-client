@@ -105,7 +105,7 @@ export default function SignInPage() {
 
           {/* Formulário de Login em Destaque */}
           <div className="mb-16 flex justify-center">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-sm">
               <div className="from-primary/5 to-primary/10 rounded-3xl bg-gradient-to-br p-1 shadow-2xl">
                 <div className="bg-background rounded-3xl p-2">
                   <SignInForm />
@@ -231,19 +231,19 @@ export default function SignInPage() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="text-muted-foreground grid grid-cols-2 gap-8 text-sm sm:grid-cols-4">
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
                 <Shield className="h-4 w-4 text-green-500" />
                 Certif. ISO 27001
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
                 <Lock className="h-4 w-4 text-blue-500" />
                 Criptografia JWT
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
                 <Globe className="h-4 w-4 text-purple-500" />
                 LGPD Compliance
               </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
                 <Clock className="h-4 w-4 text-orange-500" />
                 Uptime 99.9%
               </div>
