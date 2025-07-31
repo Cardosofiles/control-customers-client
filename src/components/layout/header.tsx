@@ -118,7 +118,7 @@ export function Header() {
           <DialogFooter className="sm:justify-center">
             <Button
               onClick={handleLogoutSuccess}
-              className="bg-primary/10 w-full"
+              className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary w-full cursor-pointer"
             >
               <LogOut className="mr-2 h-4 w-4" />
               Voltar ao Início

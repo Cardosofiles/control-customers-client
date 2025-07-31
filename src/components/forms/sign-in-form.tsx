@@ -158,14 +158,14 @@ export function SignInForm() {
             </DialogTitle>
             <DialogDescription className="text-center text-base">
               Bem-vindo de volta! Você está sendo redirecionado para o{' '}
-              <span className="text-foreground font-semibold">dashboard</span>{' '}
-              onde poderá gerenciar seus clientes.
+              <span className="text-primary font-semibold">dashboard</span> onde
+              poderá gerenciar seus clientes.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-center">
             <Button
               onClick={handleLoginSuccess}
-              className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary/70 w-full cursor-pointer"
+              className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary w-full cursor-pointer"
             >
               <LogIn className="mr-2 h-4 w-4" />
               Ir para Dashboard
