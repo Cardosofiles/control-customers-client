@@ -102,7 +102,7 @@ export function Header() {
         onOpenChange={setIsLogoutSuccessModalOpen}
       >
         <DialogContent className="sm:max-w-md">
-          <DialogHeader className="text-center">
+          <DialogHeader className="items-center text-center">
             <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
               <CheckCircle className="text-primary h-8 w-8" />
             </div>
