@@ -408,11 +408,11 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
       {/* Modal de Sucesso */}
       <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
         <DialogContent className="sm:max-w-md">
-          <DialogHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
-              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+          <DialogHeader className="items-center text-center">
+            <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+              <CheckCircle className="text-primary h-8 w-8" />
             </div>
-            <DialogTitle className="text-xl font-semibold text-green-700 dark:text-green-400">
+            <DialogTitle className="text-primary text-xl font-semibold">
               Cliente Cadastrado com Sucesso!
             </DialogTitle>
             <DialogDescription className="text-center text-base">
@@ -427,7 +427,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
           <DialogFooter className="sm:justify-center">
             <Button
               onClick={() => setIsSuccessModalOpen(false)}
-              className="w-full bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+              className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary/70 w-full cursor-pointer"
             >
               Continuar
             </Button>
