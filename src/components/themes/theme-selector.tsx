@@ -71,7 +71,7 @@ export function ThemeSelector() {
         <SelectTrigger
           id="theme-selector"
           size="sm"
-          className="justify-start bg-zinc-300/70 *:data-[slot=select-value]:w-12"
+          className="bg-primary/20 dark:bg-primary/30 hover:bg-primary/90 dark:hover:bg-primary/80 justify-start hover:text-zinc-200 *:data-[slot=select-value]:w-12"
         >
           <span className="text-muted-foreground hidden sm:block">
             Selecione o tema:
