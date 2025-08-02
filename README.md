@@ -1,16 +1,52 @@
 # 🎯 ControlCustomers - Sistema de Gestão de Clientes
 
-> Uma plataforma moderna e completa para gestão inteligente de clientes, desenvolvida com as mais recentes tecnologias React/Next.js.
+> Uma plataforma moderna e completa para gestão inteligente de clientes, desenvolvida com as mais recentes tecnologias React/Next.js e sistema de autenticação NextAuth.
 
-![Next.js](https://img.shields.io/badge/Next.js-15.4.2-black)
+### Autenticação (`/sign-in`)
+
+- **Login NextAuth** - Interface elegante com validação robusta
+- **Feedback em tempo real** - Validação instantânea de credenciais
+- **Modais de suc### Padrões de Arquitetura
+
+- **Feature-Based Organization** - Componentes organizados por funcionalidade
+- **Authentication First** - Siste## 🔒 Segurança
+
+### Práticas Implementadas
+
+- **NextAuth.js** - Autenticação enterprise com sessões seguras
+- **bcrypt Hashing** - Senhas protegidas com salt rounds 12
+- **Route Protection** - Middleware que intercepta acessos não autorizados
+- **Type Safety** - TypeScript em modo estrito
+- **Input Validation** - Zod schemas em todos os formulários
+- **CSRF Protection** - Next.js built-in protection
+- **Environment Variables** - Separação segura de configurações sensíveis
+- **Cookie Security** - httpOnly e secure flags automáticos
+- **JWT Tokens** - Sessions criptografadas com chaves secretasenticação como base da aplicação
+- **Colocation** - Arquivos relacionados próximos uns dos outros
+- **Separation of Concerns** - Lógica separada da apresentação
+- **Dependency Injection** - Props e contexts para inversão de controle
+- **Route Protection** - Middleware automatizado para segurança - Confirmação visual do login bem-sucedido
+- **Redirecionamento automático** - Acesso direto ao dashboard após autenticação
+- **Proteção de rota** - Tentativas não autorizadas são interceptadas
+
+### Dashboard (`/dashboard`) - **ROTA PROTEGIDA**
+
+- **Acesso restrito** - Apenas usuários autenticados podem acessar
+- **Cadastro de Clientes** - Formulário completo com validação Zod
+- **Gestão de Endereços** - Múltiplos endereços com integração ViaCEP
+- **Tabela de Clientes** - Listagem completa com ações CRUD
+- **Filtros e Busca** - Encontre clientes rapidamente
+- **Modais de Confirmação** - Ações seguras com feedback visualtps://img.shields.io/badge/Next.js-15.4.2-black)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![NextAuth](https://img.shields.io/badge/NextAuth.js-5.0-green)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-cyan)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Destaques da Aplicação
 
 - ⚡ **Performance Premium**: Built com Next.js 15 + Turbopack
+- 🔐 **Autenticação Robusta**: NextAuth.js com proteção de rotas
 - 🎨 **UI Moderna**: shadcn/ui + Tailwind CSS 4 com temas personalizáveis
 - 📊 **Analytics Inteligente**: Dashboards interativos com Recharts
 - 🔄 **Estado Avançado**: TanStack Query com cache persistente
@@ -24,6 +60,13 @@
 - **Next.js 15.4.2** - Framework React com App Router e Turbopack
 - **React 19** - Biblioteca UI com Concurrent Features
 - **TypeScript 5** - Tipagem estática e IntelliSense avançado
+
+### Autenticação & Segurança
+
+- **NextAuth.js 5.0** - Sistema de autenticação completo e seguro
+- **bcryptjs** - Hash de senhas com salt para máxima segurança
+- **Middleware de Proteção** - Interceptação de rotas protegidas
+- **Sessions Management** - Gerenciamento automático de sessões
 
 ### UI & Design System
 
@@ -54,40 +97,52 @@
 
 ## ✨ Funcionalidades Implementadas
 
-### 🔐 Sistema de Autenticação
+### 🔐 Sistema de Autenticação Completo
 
-- Login seguro com validação de credenciais
-- Persistência de sessão com cookies
-- Proteção de rotas privadas
-- Logout automático
+- **NextAuth.js Integration** - Autenticação robusta e moderna
+- **Middleware de Proteção** - Interceptação automática de acessos não autorizados
+- **Rota Dashboard Protegida** - `/dashboard` só acessível após login
+- **Hash bcrypt** - Senhas protegidas com criptografia de nível enterprise
+- **Sessões Seguras** - Gerenciamento automático com cookies seguros
+- **Modais de Feedback** - UX elegante para login/logout com confirmações visuais
+- **Redirecionamentos Inteligentes** - Fluxo automático entre páginas
 
 ### 👥 Gestão Completa de Clientes
 
-- ✅ **CREATE** - Cadastro com formulários inteligentes
-- ✅ **READ** - Listagem com filtros e busca
-- ✅ **UPDATE** - Edição inline com confirmação
-- ✅ **DELETE** - Exclusão com modal de confirmação
+- ✅ **CREATE** - Cadastro com formulários inteligentes e validação em tempo real
+- ✅ **READ** - Listagem com filtros avançados e busca instantânea
+- ✅ **UPDATE** - Edição inline com confirmação e feedback visual
+- ✅ **DELETE** - Exclusão segura com modal de confirmação
 
-### 🏠 Sistema de Endereços
+### 🏠 Sistema de Endereços Avançado
 
-- Múltiplos endereços por cliente
-- Integração automática com ViaCEP
-- Validação de CEP em tempo real
-- Formatação automática de campos
+- **Múltiplos endereços** por cliente com gerenciamento dinâmico
+- **Integração ViaCEP** - Preenchimento automático via CEP
+- **Validação em tempo real** - Feedback instantâneo de CEP
+- **Formatação automática** - Campos padronizados automaticamente
 
-### 📊 Dashboard Analytics
+### 📊 Dashboard Analytics Premium
 
-- Gráficos interativos em tempo real
-- Métricas de performance
-- Visualizações responsivas
-- Estatísticas consolidadas
+- **Gráficos interativos** em tempo real com Recharts
+- **Métricas de performance** consolidadas
+- **Visualizações responsivas** adaptáveis a qualquer dispositivo
+- **Estatísticas detalhadas** com insights de negócio
 
-### 🎨 Interface Avançada
+### 🎨 Interface & UX Moderna
 
-- Modo claro/escuro com persistência
-- Componentes acessíveis (WCAG)
-- Animações suaves e naturais
-- Design system consistente
+- **Modo claro/escuro** com persistência automática
+- **Componentes acessíveis** seguindo padrões WCAG
+- **Animações suaves** com Framer Motion
+- **Design system consistente** com shadcn/ui
+- **Banner de boas-vindas** com cache inteligente (8 horas)
+
+### 🛡️ Segurança Enterprise
+
+- **Proteção de rotas** com middleware NextAuth
+- **Hash bcrypt** para senhas (salt rounds: 12)
+- **Validação de entrada** com Zod schemas
+- **Sessões criptografadas** com JWT tokens
+- **CSRF Protection** integrada ao Next.js
 
 ## 🛠️ Instalação e Configuração
 
@@ -144,18 +199,26 @@ touch .env.local
 Adicione as seguintes variáveis ao arquivo `.env.local`:
 
 ```env
+# === AUTENTICAÇÃO NEXTAUTH (OBRIGATÓRIO) ===
+# Chave secreta para NextAuth.js (gere uma chave forte)
+NEXTAUTH_SECRET=sua-chave-secreta-muito-forte-aqui
+NEXTAUTH_URL=http://localhost:3000
+
 # === CREDENCIAIS DE DEMONSTRAÇÃO ===
 # Configure usuário e senha para o sistema de login
-NEXT_PUBLIC_USERNAME=admin
-NEXT_PUBLIC_PASSWORD=123456
+NEXT_PUBLIC_USERNAME=asoec
+NEXT_PUBLIC_PASSWORD=asoec@2025
 
-# === CONFIGURAÇÕES PÚBLICAS ===
-# Estas podem ser expostas no frontend
-CELCOIN_CLIENT_ID=demo_client_id
-CELCOIN_CLIENT_SECRET=demo_client_secret
+# === CONFIGURAÇÕES DA API CELCOIN ===
+# Para integração com serviços externos
+CELCOIN_CLIENT_ID=seu_client_id
+CELCOIN_CLIENT_SECRET=seu_client_secret
 ```
 
-> **⚠️ Importante**: Sem as credenciais Celcoin, a aplicação funcionará perfeitamente com dados simulados (mock data).
+> **⚠️ Importante**: 
+> - **NEXTAUTH_SECRET** é obrigatório para a autenticação funcionar
+> - Gere uma chave forte com: `openssl rand -base64 32`
+> - Sem as credenciais Celcoin, a aplicação funcionará com dados simulados
 
 ### 4️⃣ Execução Local
 
@@ -177,9 +240,11 @@ A aplicação estará disponível em: **http://localhost:3000**
 1. **Acesse**: http://localhost:3000
 2. **Login**: Clique em "Entrar" no cabeçalho
 3. **Credenciais padrão**:
-   - **Usuário**: `admin`
-   - **Senha**: `123456`
+   - **Usuário**: `asoec`
+   - **Senha**: `asoec@2025`
 4. **Dashboard**: Após login, acesse `/dashboard` para gerenciar clientes
+
+> **🔐 Proteção de Rota**: Tentativas de acessar `/dashboard` sem login são automaticamente redirecionadas para `/sign-in`
 
 ## 🎮 Como Usar a Aplicação
 
@@ -267,12 +332,22 @@ pnpm start
 1. **Conecte o repositório** à sua conta Vercel
 2. **Configure as variáveis de ambiente** no painel Vercel:
    ```
-   NEXT_PUBLIC_USERNAME=admin
-   NEXT_PUBLIC_PASSWORD=123456
+   # Obrigatórias para NextAuth
+   NEXTAUTH_SECRET=sua-chave-secreta-muito-forte-de-32-caracteres
+   NEXTAUTH_URL=https://seu-projeto.vercel.app
+   
+   # Credenciais de demo (já configuradas)
+   NEXT_PUBLIC_USERNAME=asoec
+   NEXT_PUBLIC_PASSWORD=asoec@2025
+   
+   # API Celcoin (opcional)
    CELCOIN_CLIENT_ID=seu_client_id
    CELCOIN_CLIENT_SECRET=seu_client_secret
    ```
 3. **Deploy automático** será executado
+4. **Teste a autenticação** com as credenciais configuradas
+
+> **⚠️ Importante**: NEXTAUTH_SECRET é obrigatório para produção. Gere com `openssl rand -base64 32`
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/cardosofiles/control-customers-client)
 
@@ -290,24 +365,33 @@ pnpm start
 ```
 src/
 ├── app/                      # App Router (Next.js 15)
-│   ├── layout.tsx           # Layout raiz com providers
-│   ├── page.tsx             # Página inicial (/)
+│   ├── layout.tsx           # Layout raiz com providers (AuthProvider, ThemeProvider)
+│   ├── page.tsx             # Página inicial (/) - Landing page
 │   ├── api/                 # API Routes
+│   │   ├── auth/            # NextAuth.js endpoints
+│   │   │   └── [...nextauth]/route.ts
 │   │   └── celcoin-token/   # Endpoint para token Celcoin
-│   ├── dashboard/           # Dashboard de gestão (/dashboard)
+│   ├── dashboard/           # Dashboard de gestão (/dashboard) - PROTEGIDO
 │   │   └── page.tsx
-│   └── sign-in/             # Página de login (/sign-in)
-│       └── page.tsx
+│   ├── sign-in/             # Página de login (/sign-in)
+│   │   └── page.tsx
+│   └── not-found.tsx        # Página 404 customizada
 │
 ├── components/              # Componentes reutilizáveis
+│   ├── auth/                # Sistema de autenticação
+│   │   └── protected-route.tsx
 │   ├── forms/               # Formulários especializados
 │   │   ├── create-customers-form.tsx
 │   │   └── sign-in-form.tsx
 │   ├── layout/              # Componentes de layout
-│   │   ├── header.tsx
+│   │   ├── header.tsx       # Header com controles de auth
 │   │   ├── hero-section.tsx
 │   │   ├── analytics-dashboard-preview.tsx
 │   │   └── footer.tsx
+│   ├── providers/           # Context providers
+│   │   ├── auth-provider.tsx     # NextAuth SessionProvider
+│   │   ├── query-provider.tsx    # TanStack Query
+│   │   └── theme-provider.tsx    # Theme management
 │   ├── table/               # Tabelas de dados
 │   │   └── customer-table.tsx
 │   ├── themes/              # Sistema de temas
@@ -317,10 +401,10 @@ src/
 │   ├── ui/                  # Componentes base (shadcn/ui)
 │   │   ├── button.tsx
 │   │   ├── card.tsx
+│   │   ├── dialog.tsx       # Modais para feedback
 │   │   ├── form.tsx
 │   │   ├── input.tsx
-│   │   ├── query-provider.tsx
-│   │   └── welcome.tsx
+│   │   └── welcome.tsx      # Banner inteligente com cache
 │   └── whatsapp/            # Integração WhatsApp
 │       └── whatsapp-button.tsx
 │
@@ -340,6 +424,12 @@ src/
 │
 └── utils/                   # Utilitários diversos
     └── fonts.ts             # Configuração de fontes
+
+# Arquivos de Configuração (Raiz)
+├── auth.config.ts           # Configuração NextAuth
+├── auth.ts                  # Providers e lógica de auth
+├── middleware.ts            # Middleware de proteção de rotas
+└── next.config.ts           # Configuração Next.js
 ```
 
 ### Padrões de Arquitetura
@@ -565,6 +655,32 @@ MIT License
 Copyright (c) 2025 Cardoso Files
 ```
 
+---
+
+## 🚀 Sistema de Autenticação
+
+### Fluxo de Autenticação
+
+1. **Usuário acessa `/dashboard`** → Middleware verifica autenticação
+2. **Se não autenticado** → Redireciona automaticamente para `/sign-in`
+3. **Login bem-sucedido** → Modal de sucesso + redirecionamento para `/dashboard`
+4. **Usuário autenticado** → Acesso liberado ao dashboard
+5. **Logout** → Modal de confirmação + limpeza de sessão
+
+### Credenciais de Acesso
+
+```
+Usuário: asoec
+Senha: asoec@2025
+```
+
+### Segurança Enterprise
+
+- **Hash bcrypt** com salt rounds 12
+- **Sessions JWT** criptografadas
+- **Middleware de proteção** automático
+- **Redirecionamentos seguros** entre páginas
+
 ## 👨‍💻 Autor
 
 **Cardoso Files**
@@ -575,18 +691,22 @@ Copyright (c) 2025 Cardoso Files
 
 ## 🙏 Agradecimentos
 
-- **shadcn/ui** - Pelos componentes elegantes
+- **NextAuth.js** - Pelo sistema de autenticação robusto e seguro
+- **shadcn/ui** - Pelos componentes elegantes e acessíveis
 - **Vercel** - Pela plataforma de deploy incrível
-- **Radix UI** - Pelos primitivos acessíveis
+- **Radix UI** - Pelos primitivos acessíveis e robustos
 - **TanStack** - Pelas ferramentas de state management
+- **bcryptjs** - Pela criptografia de senhas segura
 - **Comunidade React** - Pelo ecossistema fantástico
 
 ---
 
 <div align="center">
 
-**Desenvolvido com ❤️ usando Next.js 15 + shadcn/ui**
+**Desenvolvido com ❤️ usando Next.js 15 + NextAuth.js + shadcn/ui**
 
 [⭐ Star no GitHub](https://github.com/cardosofiles/control-customers-client) • [🐛 Reportar Bug](https://github.com/cardosofiles/control-customers-client/issues) • [✨ Solicitar Feature](https://github.com/cardosofiles/control-customers-client/issues)
+
+**🔐 Sistema de autenticação completo • 🛡️ Proteção de rotas • 🎨 UI moderna • 📊 Analytics avançado**
 
 </div>
