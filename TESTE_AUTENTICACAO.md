@@ -7,7 +7,7 @@ O sistema de autenticação foi implementado com NextAuth.js para proteger a rot
 ### 🔑 Credenciais de Acesso (já configuradas na Vercel)
 
 - **Usuário**: `asoec` (NEXT_PUBLIC_USERNAME)
-- **Senha**: `asoec@2025` (NEXT_PUBLIC_PASSWORD)
+- **Senha**: (NEXT_PUBLIC_PASSWORD)
 
 ### 🚀 Para Testar o Sistema
 

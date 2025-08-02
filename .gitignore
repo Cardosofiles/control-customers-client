@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/STATUS_DEPLOY.md
+/TESTE_AUTENTICACAO.md
