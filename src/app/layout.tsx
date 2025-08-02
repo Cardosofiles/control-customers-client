@@ -1,14 +1,15 @@
+import { cookies } from 'next/headers'
+
 import { Header } from '@/components/layout/header'
 import { AuthProvider } from '@/components/providers/auth-provider'
-import { ActiveThemeProvider } from '@/components/themes/theme-active'
-import { ThemeProvider } from '@/components/themes/theme-provider'
-import { TanStackProviders } from '@/components/ui/query-provider'
+import { TanStackProviders } from '@/components/providers/query-provider'
+import { ActiveThemeProvider } from '@/components/providers/theme-active-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { WelcomeBanner } from '@/components/ui/welcome'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import { inter, ptSansCaption } from '@/utils/fonts'
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
 
 export const metadata: Metadata = {
   title: {

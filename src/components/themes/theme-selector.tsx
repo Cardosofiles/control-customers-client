@@ -1,6 +1,6 @@
 'use client'
 
-import { useThemeConfig } from '../themes/theme-active'
+import { useThemeConfig } from '../providers/theme-active-provider'
 import { Label } from '../ui/label'
 import {
   Select,
