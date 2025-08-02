@@ -841,7 +841,7 @@ solicite as credenciais no e-mail: cardosofiles@outlook.com
 **Cardoso Files**
 
 - 🌐 **GitHub**: [@cardosofiles](https://github.com/cardosofiles)
-- 📧 **Email**: cardosofiles@exemplo.com
+- 📧 **Email**: cardosofiles@outlook.com
 - 💼 **LinkedIn**: [Cardoso Files](https://linkedin.com/in/cardosofiles)
 
 ## 🙏 Agradecimentos
