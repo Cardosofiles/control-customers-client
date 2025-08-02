@@ -7,11 +7,13 @@ A senha foi protegida usando **bcrypt hash** para maior segurança na autentica�
 ### 🔑 Detalhes da Implementação
 
 #### **Antes (Inseguro):**
+
 ```typescript
 password: process.env.NEXT_PUBLIC_PASSWORD || 'asoec@2025' // Senha em texto puro
 ```
 
 #### **Depois (Seguro):**
+
 ```typescript
 // Hash bcrypt da senha 'asoec@2025' com salt rounds = 12
 const hashedPassword = '$2b$12$pHnx0v0W4QqoQUk67YRDY.4BmJCKhUAOsjhsG93aSVb5u8mmhlxDu'
@@ -36,10 +38,11 @@ if (email === DEMO_USER.email) {
 ### 📋 Credenciais de Login
 
 **AS CREDENCIAIS CONTINUAM AS MESMAS:**
+
 - **Usuário**: `asoec`
 - **Senha**: `asoec@2025`
 
-*(O usuário digita a senha normal, o sistema compara com o hash)*
+_(O usuário digita a senha normal, o sistema compara com o hash)_
 
 ### 🔒 Benefícios de Segurança
 
@@ -52,12 +55,14 @@ if (email === DEMO_USER.email) {
 ### 🚀 Para Produção na Vercel
 
 **CREDENCIAIS PERMANECEM:**
+
 ```
 NEXT_PUBLIC_USERNAME=asoec
 NEXT_PUBLIC_PASSWORD=asoec@2025
 ```
 
 **ADICIONAR:**
+
 ```
 NEXTAUTH_SECRET=Jbs9V+lI0pRuX9Adik4+TF6GCm8cWPwePwaA7p/GipY=
 NEXTAUTH_URL=https://seu-projeto.vercel.app

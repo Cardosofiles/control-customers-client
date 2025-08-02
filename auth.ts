@@ -4,7 +4,8 @@ import Credentials from 'next-auth/providers/credentials'
 import { authConfig } from './auth.config'
 
 // Hash da senha para maior segurança
-const hashedPassword = '$2b$12$pHnx0v0W4QqoQUk67YRDY.4BmJCKhUAOsjhsG93aSVb5u8mmhlxDu' // Hash de 'asoec@2025'
+const hashedPassword =
+  '$2b$12$pHnx0v0W4QqoQUk67YRDY.4BmJCKhUAOsjhsG93aSVb5u8mmhlxDu' // Hash de 'asoec@2025'
 
 const DEMO_USER = {
   id: '1',
@@ -27,8 +28,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 
         // Verifica se o email coincide e compara a senha com hash bcrypt
         if (email === DEMO_USER.email) {
-          const isValidPassword = await bcrypt.compare(password, DEMO_USER.password)
-          
+          const isValidPassword = await bcrypt.compare(
+            password,
+            DEMO_USER.password
+          )
+
           if (isValidPassword) {
             return {
               id: DEMO_USER.id,
