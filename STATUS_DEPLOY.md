@@ -32,6 +32,7 @@ NEXTAUTH_URL=https://SEU-PROJETO.vercel.app
 ```
 
 **✅ JÁ CONFIGURADAS na Vercel**:
+
 ```
 NEXT_PUBLIC_USERNAME=asoec
 NEXT_PUBLIC_PASSWORD=asoec@2025
@@ -61,9 +62,10 @@ Route (app)                    Size    First Load JS
 
 ### 🎯 Resultado Final
 
-**A aplicação está 100% pronta para produção na Vercel!** 
+**A aplicação está 100% pronta para produção na Vercel!**
 
 Todos os requisitos foram implementados:
+
 - ✅ Autenticação com credenciais específicas
 - ✅ Proteção da rota /dashboard
 - ✅ Redirecionamento automático

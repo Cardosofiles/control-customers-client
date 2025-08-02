@@ -5,12 +5,14 @@
 A aplicação está pronta para deploy na Vercel com as seguintes implementações:
 
 ### 🔐 Sistema de Autenticação
+
 - ✅ NextAuth.js configurado
 - ✅ Middleware de proteção implementado
 - ✅ Rotas protegidas funcionando
 - ✅ **Usa as credenciais já configuradas na Vercel**: `asoec` / `asoec@2025`
 
 ### 📁 Estrutura de Arquivos
+
 - ✅ `not-found.tsx` criado (correção de build)
 - ✅ **Reutiliza variáveis de ambiente já existentes**
 - ✅ Dependências instaladas corretamente
@@ -20,6 +22,7 @@ A aplicação está pronta para deploy na Vercel com as seguintes implementaçõ
 ### 1. Variáveis de Ambiente Já Existentes
 
 ✅ **JÁ CONFIGURADAS na Vercel**:
+
 ```
 NEXT_PUBLIC_USERNAME=asoec
 NEXT_PUBLIC_PASSWORD=asoec@2025
@@ -30,6 +33,7 @@ NEXT_PUBLIC_CELCOIN_CLIENT_SECRET=...
 ### 2. Variáveis Adicionais Necessárias
 
 **ADICIONAR estas variáveis no painel da Vercel**:
+
 ```
 NEXTAUTH_SECRET=uma-chave-secreta-muito-forte-e-aleatoria-de-32-caracteres
 NEXTAUTH_URL=https://SEU-PROJETO.vercel.app
