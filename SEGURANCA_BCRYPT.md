@@ -58,7 +58,7 @@ _(O usuário digita a senha normal, o sistema compara com o hash)_
 
 ```
 NEXT_PUBLIC_USERNAME=asoec
-NEXT_PUBLIC_PASSWORD=asoec@2025
+NEXT_PUBLIC_PASSWORD=password-hash
 ```
 
 **ADICIONAR:**

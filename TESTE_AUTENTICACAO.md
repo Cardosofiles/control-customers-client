@@ -23,7 +23,7 @@ O sistema de autenticação foi implementado com NextAuth.js para proteger a rot
 
 3. **Teste de Login**:
    - Vá para `http://localhost:3000/sign-in`
-   - Digite as credenciais: `asoec@2025` / `asoec@2025`
+   - Solicite as credenciais no e-mail: `cardosofiles@outlook.com`
    - ✅ Deve mostrar modal de sucesso e redirecionar para `/dashboard`
 
 4. **Teste de Logout**:

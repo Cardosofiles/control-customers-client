@@ -18,7 +18,6 @@ export default function ListPage() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [tokenError, setTokenError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     async function getToken() {
@@ -176,11 +175,15 @@ export default function ListPage() {
           </div>
           <div className="flex items-start space-x-2">
             <div className="bg-primary mt-2 h-1.5 w-1.5 rounded-full"></div>
-            <p>Use o botão "Novo Cliente" para cadastrar rapidamente</p>
+            <p>
+              Use o botão &quot;Novo Cliente&quot; para cadastrar rapidamente
+            </p>
           </div>
           <div className="flex items-start space-x-2">
             <div className="bg-primary mt-2 h-1.5 w-1.5 rounded-full"></div>
-            <p>Atualize a lista com o botão "Atualizar" se necessário</p>
+            <p>
+              Atualize a lista com o botão &quot;Atualizar&quot; se necessário
+            </p>
           </div>
         </CardContent>
       </Card>

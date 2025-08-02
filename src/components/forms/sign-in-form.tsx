@@ -65,7 +65,7 @@ export function SignInForm() {
         // Login bem-sucedido
         setIsLoginSuccessModalOpen(true)
       }
-    } catch (error) {
+    } catch {
       setError('Erro interno. Tente novamente.')
     } finally {
       setIsLoading(false)

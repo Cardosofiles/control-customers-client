@@ -4,8 +4,55 @@
 
 ### Autenticação (`/sign-in`)
 
-- **Login NextAuth** - Interface elegante com validação robusta
-- **Feedback em tempo real** - Validação instantânea de credenciais
+- **Login NextAuth** - Interface elegante com validação robusta### Dashboard Modular (`/dashboard`)
+
+O dashboard modular oferece três páginas especializadas acessíveis via navegação intuitiva:
+
+#### 📊 Analytics (`/dashboard/analytics`)
+
+- **Visão Executiva**: Página inicial do dashboard com métricas consolidadas
+- **Dados em Tempo Real**: Integração direta com a API para estatísticas atualizadas
+- **Cards Informativos**:
+  - Total de Clientes cadastrados no sistema
+  - Clientes Ativos (status ativo vs inativo)
+  - Novos Cadastros do mês atual
+  - Crescimento percentual mensal
+- **Status do Sistema**: Monitoramento de token Celcoin e conectividade
+- **Relatórios Detalhados**: Taxa de ativação, distribuição de dados, estatísticas completas
+
+#### 📝 Cadastro (`/dashboard/registration`)
+
+- **Formulário Dedicado**: Interface especializada para novos clientes
+- **Validação Avançada**: React Hook Form + Zod com feedback instantâneo
+- **Automação Inteligente**:
+  - Formatação automática de CPF/CNPJ, telefone
+  - Integração ViaCEP para preenchimento de endereços
+  - Múltiplos endereços com sistema dinâmico
+- **Orientações Contextuais**: Cards com dicas de preenchimento
+- **Estados Visuais**: Loading, sucesso e erro com design elegante
+
+#### 📋 Lista (`/dashboard/list`)
+
+- **Gestão Completa**: Tabela com todos os clientes e ações CRUD
+- **Funcionalidades Avançadas**:
+  - Filtros por nome, email, documento, ID
+  - Edição inline com validação em tempo real
+  - Exclusão segura com confirmação via modal
+  - Expansão de linhas para visualizar endereços
+- **Navegação Otimizada**:
+  - Botão "Novo Cliente" (link direto para cadastro)
+  - Botão "Atualizar" para refresh dos dados
+  - Contadores de registros (total/filtrados)
+
+#### 🧭 Sistema de Navegação
+
+- **Navbar Persistente**: Sempre visível entre as páginas
+- **Indicação Visual**: Página ativa destacada com cor diferenciada
+- **Ícones Identificadores**:
+  - 📊 BarChart3 para Analytics
+  - ➕ Plus para Cadastro
+  - 👥 Users para Lista
+- **Responsividade**: Ícones no mobile, texto completo no desktopedback em tempo real\*\* - Validação instantânea de credenciais
 - **Modais de sucesso** - Padrões de Arquitetura
 
 - **Feature-Based Organization** - Componentes organizados por funcionalidade
@@ -29,14 +76,45 @@
 - **Redirecionamento automático** - Acesso direto ao dashboard após autenticação
 - **Proteção de rota** - Tentativas não autorizadas são interceptadas
 
-### Dashboard (`/dashboard`) - **ROTA PROTEGIDA**
+### Dashboard Modular (`/dashboard`) - **ROTA PROTEGIDA**
 
-- **Acesso restrito** - Apenas usuários autenticados podem acessar
-- **Cadastro de Clientes** - Formulário completo com validação Zod
-- **Gestão de Endereços** - Múltiplos endereços com integração ViaCEP
-- **Tabela de Clientes** - Listagem completa com ações CRUD
-- **Filtros e Busca** - Encontre clientes rapidamente
-- **Modais de Confirmação** - Ações seguras com feedback visualtps://img.shields.io/badge/Next.js-15.4.2-black)
+O dashboard foi reestruturado em **três páginas especializadas** com navegação intuitiva:
+
+#### 📊 Analytics (`/dashboard/analytics`)
+
+- **Métricas em Tempo Real** - Dados reais da API de clientes
+- **Total de Clientes** - Contagem atual de registros no sistema
+- **Clientes Ativos** - Filtro por status ativo/inativo
+- **Novos este Mês** - Cadastros baseados na data de criação
+- **Crescimento Mensal** - Comparação percentual mês atual vs anterior
+- **Status do Sistema** - Conectividade API e token Celcoin
+- **Estatísticas Detalhadas** - Taxa de ativação, dados de contato, endereços
+
+#### 📝 Cadastro (`/dashboard/registration`)
+
+- **Formulário Completo** - Validação Zod com feedback em tempo real
+- **Campos Inteligentes** - CPF/CNPJ, email, telefone com formatação automática
+- **Integração ViaCEP** - Preenchimento automático de endereços via CEP
+- **Múltiplos Endereços** - Sistema de array dinâmico para vários endereços
+- **Dicas Contextuais** - Cards informativos com orientações de preenchimento
+- **Estados de Loading** - Feedback visual durante token e submissão
+
+#### 📋 Lista (`/dashboard/list`)
+
+- **Tabela Interativa** - Componente CustomerTable com todas as funcionalidades
+- **Ações CRUD Completas** - Criar, visualizar, editar e excluir clientes
+- **Navegação Rápida** - Botão direto para cadastro de novo cliente
+- **Atualização Manual** - Botão refresh para sincronizar dados
+- **Filtros Avançados** - Busca por ID, nome, documento e email (integrada no CustomerTable)
+- **Modais de Confirmação** - Ações seguras com feedback visual
+
+#### 🧭 Navegação Unificada
+
+- **Navbar Fixa** - Componente DashboardNavbar sempre visível
+- **Indicação Visual** - Página ativa destacada na navegação
+- **Ícones Intuitivos** - BarChart3 (Analytics), Plus (Cadastro), Users (Lista)
+- **Responsiva** - Adaptável para mobile e desktop
+- **Layout Compartilhado** - ProtectedRoute aplicado automaticamentetps://img.shields.io/badge/Next.js-15.4.2-black)
   ![React](https://img.shields.io/badge/React-19-blue)
   ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
   ![NextAuth](https://img.shields.io/badge/NextAuth.js-5.0-green)
@@ -101,17 +179,57 @@
 
 - **NextAuth.js Integration** - Autenticação robusta e moderna
 - **Middleware de Proteção** - Interceptação automática de acessos não autorizados
-- **Rota Dashboard Protegida** - `/dashboard` só acessível após login
+- **Rotas Dashboard Protegidas** - Todo o `/dashboard/*` só acessível após login
 - **Hash bcrypt** - Senhas protegidas com criptografia de nível enterprise
 - **Sessões Seguras** - Gerenciamento automático com cookies seguros
 - **Modais de Feedback** - UX elegante para login/logout com confirmações visuais
 - **Redirecionamentos Inteligentes** - Fluxo automático entre páginas
 
+### 🏗️ Dashboard Modular Especializado
+
+#### 📊 **Analytics** (`/dashboard/analytics`)
+
+- **Métricas Reais** - Dados obtidos diretamente da API de clientes
+- **Cards Dinâmicos** com indicadores visuais:
+  - Total de Clientes (contagem real da base)
+  - Clientes Ativos (filtro por status)
+  - Novos este Mês (baseado na data de criação)
+  - Crescimento Mensal (comparação percentual)
+- **Status do Sistema** - Token Celcoin, conectividade API, última sync
+- **Estatísticas Avançadas** - Taxa de ativação, distribuição por status, dados de contato
+- **Área para Gráficos** - Preparada para integração com Chart.js/Recharts
+
+#### 📝 **Cadastro** (`/dashboard/registration`)
+
+- **Formulário Especializado** - Focado exclusivamente no cadastro de novos clientes
+- **Validação Inteligente** - React Hook Form + Zod com feedback em tempo real
+- **Integração ViaCEP** - Preenchimento automático de endereços via CEP
+- **Múltiplos Endereços** - Sistema de array dinâmico
+- **Dicas Contextuais** - Cards informativos com orientações de preenchimento
+- **Estados Visuais** - Loading, error e success states elegantes
+
+#### � **Lista** (`/dashboard/list`)
+
+- **Tabela Completa** - Reutiliza o componente CustomerTable existente
+- **Filtros Integrados** - Busca por ID, nome, documento, email
+- **Ações CRUD** - Editar inline, excluir com confirmação
+- **Navegação Rápida** - Botão direto para cadastro de novos clientes
+- **Atualização Manual** - Refresh para sincronizar dados
+- **Feedback Visual** - Estados de loading e confirmações elegantes
+
+#### 🧭 **Navegação Unificada**
+
+- **DashboardNavbar** - Componente de navegação sempre visível
+- **Indicação Visual** - Página ativa destacada na navbar
+- **Ícones Intuitivos** - BarChart3, Plus, Users para cada seção
+- **Layout Compartilhado** - ProtectedRoute aplicado automaticamente
+- **Redirecionamento** - `/dashboard` redireciona para `/dashboard/analytics`
+
 ### 👥 Gestão Completa de Clientes
 
-- ✅ **CREATE** - Cadastro com formulários inteligentes e validação em tempo real
-- ✅ **READ** - Listagem com filtros avançados e busca instantânea
-- ✅ **UPDATE** - Edição inline com confirmação e feedback visual
+- ✅ **CREATE** - Página especializada com formulário dedicado
+- ✅ **READ** - Analytics com métricas + Lista com tabela completa
+- ✅ **UPDATE** - Edição inline na tabela com validação
 - ✅ **DELETE** - Exclusão segura com modal de confirmação
 
 ### 🏠 Sistema de Endereços Avançado
@@ -120,13 +238,6 @@
 - **Integração ViaCEP** - Preenchimento automático via CEP
 - **Validação em tempo real** - Feedback instantâneo de CEP
 - **Formatação automática** - Campos padronizados automaticamente
-
-### 📊 Dashboard Analytics Premium
-
-- **Gráficos interativos** em tempo real com Recharts
-- **Métricas de performance** consolidadas
-- **Visualizações responsivas** adaptáveis a qualquer dispositivo
-- **Estatísticas detalhadas** com insights de negócio
 
 ### 🎨 Interface & UX Moderna
 
@@ -206,8 +317,9 @@ NEXTAUTH_URL=http://localhost:3000
 
 # === CREDENCIAIS DE DEMONSTRAÇÃO ===
 # Configure usuário e senha para o sistema de login
-NEXT_PUBLIC_USERNAME=asoec
-NEXT_PUBLIC_PASSWORD=asoec@2025
+solicite as credenciais no e-mail:  cardosofiles@outlook.com
+NEXT_PUBLIC_USERNAME=""
+NEXT_PUBLIC_PASSWORD=""
 
 # === CONFIGURAÇÕES DA API CELCOIN ===
 # Para integração com serviços externos
@@ -236,16 +348,37 @@ yarn dev
 
 A aplicação estará disponível em: **http://localhost:3000**
 
-### 5️⃣ Primeiro Acesso
+### 5️⃣ Navegação no Dashboard
 
-1. **Acesse**: http://localhost:3000
-2. **Login**: Clique em "Entrar" no cabeçalho
-3. **Credenciais padrão**:
-   - **Usuário**: `asoec`
-   - **Senha**: `asoec@2025`
-4. **Dashboard**: Após login, acesse `/dashboard` para gerenciar clientes
+Após o login, você terá acesso ao **dashboard modular** com três páginas especializadas:
 
-> **🔐 Proteção de Rota**: Tentativas de acessar `/dashboard` sem login são automaticamente redirecionadas para `/sign-in`
+#### 📊 Analytics (`/dashboard/analytics`)
+
+1. **Métricas em Tempo Real**: Total de clientes, ativos, novos do mês
+2. **Crescimento**: Comparação percentual mês atual vs anterior
+3. **Status do Sistema**: Token Celcoin, API, conectividade
+4. **Estatísticas Detalhadas**: Taxa de ativação, dados de contato, endereços
+
+#### 📝 Cadastro (`/dashboard/registration`)
+
+1. **Formulário Inteligente**: Validação em tempo real com Zod
+2. **Campos Formatados**: CPF/CNPJ, telefone, CEP automáticos
+3. **ViaCEP Integration**: Preenchimento automático de endereços
+4. **Múltiplos Endereços**: Sistema dinâmico de arrays
+
+#### 📋 Lista (`/dashboard/list`)
+
+1. **Tabela Completa**: Todos os clientes com ações CRUD
+2. **Filtros Avançados**: Busca por nome, email, documento
+3. **Edição Inline**: Modificar dados diretamente na tabela
+4. **Confirmações**: Modais elegantes para ações críticas
+
+#### 🧭 Navegação
+
+- **Navbar Fixa**: Sempre visível entre as páginas
+- **Indicação Visual**: Página ativa destacada
+- **Ícones Intuitivos**: Analytics, Cadastro, Lista
+- **Redirecionamento**: `/dashboard` → `/dashboard/analytics`
 
 ## 🎮 Como Usar a Aplicação
 
@@ -274,22 +407,28 @@ A aplicação estará disponível em: **http://localhost:3000**
 
 ### Funcionalidades Detalhadas
 
-#### 📝 Cadastro de Clientes
+#### � Dashboard Analytics
 
+- **URL**: `/dashboard/analytics` (página padrão do dashboard)
+- **Métricas calculadas**: Total, ativos, novos do mês, crescimento
+- **Dados reais**: Integração direta com `useListCustomers`
+- **Status**: Token Celcoin, API status, última sincronização
+- **Estatísticas**: Taxa de ativação, distribuição por status
+
+#### �📝 Cadastro de Clientes
+
+- **URL**: `/dashboard/registration`
 - **Campos obrigatórios**: Nome, documento, email, telefone
 - **Formatação automática**: CPF/CNPJ, telefone, CEP
 - **Validação em tempo real**: Feedback imediato
 - **Múltiplos endereços**: Adicione quantos endereços precisar
+- **ViaCEP**: Preenchimento automático via CEP
 
-#### 🏠 Gestão de Endereços
+#### � Gestão de Clientes
 
-- **ViaCEP Integration**: Digite o CEP e os campos são preenchidos
-- **Validação**: Todos os campos de endereço são validados
-- **Arrays dinâmicos**: Adicione/remova endereços conforme necessário
-
-#### 📊 Visualização de Dados
-
+- **URL**: `/dashboard/list`
 - **Tabela responsiva**: Adaptável a qualquer tela
+- **Filtros integrados**: Nome, email, documento, ID
 - **Ações inline**: Editar/excluir diretamente na tabela
 - **Modais elegantes**: Confirmações com design profissional
 - **Feedback visual**: Estados de loading e success
@@ -339,8 +478,9 @@ pnpm start
    NEXTAUTH_URL=https://seu-projeto.vercel.app
 
    # Credenciais de demo (já configuradas)
-   NEXT_PUBLIC_USERNAME=asoec
-   NEXT_PUBLIC_PASSWORD=asoec@2025
+   solicite as credenciais no e-mail: cardosofiles@outlook.com
+   NEXT_PUBLIC_USERNAME=""
+   NEXT_PUBLIC_PASSWORD=""
 
    # API Celcoin (opcional)
    CELCOIN_CLIENT_ID=seu_client_id
@@ -374,8 +514,15 @@ src/
 │   │   ├── auth/            # NextAuth.js endpoints
 │   │   │   └── [...nextauth]/route.ts
 │   │   └── celcoin-token/   # Endpoint para token Celcoin
-│   ├── dashboard/           # Dashboard de gestão (/dashboard) - PROTEGIDO
-│   │   └── page.tsx
+│   ├── dashboard/           # Dashboard modular (/dashboard) - PROTEGIDO
+│   │   ├── layout.tsx       # Layout compartilhado com DashboardNavbar
+│   │   ├── page.tsx         # Redirecionamento para /analytics
+│   │   ├── analytics/       # Página de métricas (/dashboard/analytics)
+│   │   │   └── page.tsx     # Estatísticas reais da API
+│   │   ├── registration/    # Página de cadastro (/dashboard/registration)
+│   │   │   └── page.tsx     # Formulário especializado
+│   │   └── list/            # Página de listagem (/dashboard/list)
+│   │       └── page.tsx     # Tabela com ações CRUD
 │   ├── sign-in/             # Página de login (/sign-in)
 │   │   └── page.tsx
 │   └── not-found.tsx        # Página 404 customizada
@@ -387,7 +534,8 @@ src/
 │   │   ├── create-customers-form.tsx
 │   │   └── sign-in-form.tsx
 │   ├── layout/              # Componentes de layout
-│   │   ├── header.tsx       # Header com controles de auth
+│   │   ├── header.tsx           # Header com controles de auth
+│   │   ├── dashboard-navbar.tsx # Navbar do dashboard modular
 │   │   ├── hero-section.tsx
 │   │   ├── analytics-dashboard-preview.tsx
 │   │   └── footer.tsx
@@ -396,7 +544,7 @@ src/
 │   │   ├── query-provider.tsx    # TanStack Query
 │   │   └── theme-provider.tsx    # Theme management
 │   ├── table/               # Tabelas de dados
-│   │   └── customer-table.tsx
+│   │   └── customer-table.tsx    # Tabela completa com CRUD
 │   ├── themes/              # Sistema de temas
 │   │   ├── theme-provider.tsx
 │   │   ├── theme-selector.tsx
@@ -438,9 +586,11 @@ src/
 ### Padrões de Arquitetura
 
 - **Feature-Based Organization**: Componentes organizados por funcionalidade
+- **Modular Dashboard**: Cada página do dashboard tem responsabilidade única
 - **Colocation**: Arquivos relacionados próximos uns dos outros
 - **Separation of Concerns**: Lógica separada da apresentação
 - **Dependency Injection**: Props e contexts para inversão de controle
+- **Layout Composition**: Layouts compartilhados com proteção de rota
 
 ## 🎨 Design System
 
@@ -525,11 +675,14 @@ xl: 1280px     /* Desktop grande */
 ### Bundle Analysis
 
 ```
-Route (app)                 Size     First Load JS
-┌ ○ /                      224 kB          271 kB
-├ ○ /dashboard             203 kB          250 kB
-├ ○ /sign-in               139 kB          186 kB
-└ ○ /api/celcoin-token     0 B             47.2 kB
+Route (app)                                 Size     First Load JS
+┌ ○ /                                    97.9 kB          246 kB
+├ ○ /dashboard                           134 B            100 kB
+├ ○ /dashboard/analytics                 3.83 kB          120 kB
+├ ○ /dashboard/registration              11.4 kB          203 kB
+├ ○ /dashboard/list                      5.28 kB          168 kB
+├ ○ /sign-in                             7.42 kB          154 kB
+└ ○ /api/celcoin-token                   134 B            100 kB
 ```
 
 ### Otimizações Implementadas
@@ -673,8 +826,7 @@ Copyright (c) 2025 Cardoso Files
 ### Credenciais de Acesso
 
 ```
-Usuário: asoec
-Senha: asoec@2025
+solicite as credenciais no e-mail: cardosofiles@outlook.com
 ```
 
 ### Segurança Enterprise
@@ -710,6 +862,6 @@ Senha: asoec@2025
 
 [⭐ Star no GitHub](https://github.com/cardosofiles/control-customers-client) • [🐛 Reportar Bug](https://github.com/cardosofiles/control-customers-client/issues) • [✨ Solicitar Feature](https://github.com/cardosofiles/control-customers-client/issues)
 
-**🔐 Sistema de autenticação completo • 🛡️ Proteção de rotas • 🎨 UI moderna • 📊 Analytics avançado**
+**🔐 Sistema de autenticação completo • 🛡️ Proteção de rotas • 🎨 UI moderna • 📊 Dashboard modular • 📈 Analytics em tempo real**
 
 </div>

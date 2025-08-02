@@ -18,7 +18,7 @@ import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
 export function Header() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const [isLogoutSuccessModalOpen, setIsLogoutSuccessModalOpen] =
     React.useState(false)
 
