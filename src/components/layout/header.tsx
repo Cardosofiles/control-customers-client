@@ -11,40 +11,29 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { CheckCircle, LogIn, LogOut } from 'lucide-react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
 export function Header() {
-  const [isLogged, setIsLogged] = React.useState(false)
+  const { data: session, status } = useSession()
   const [isLogoutSuccessModalOpen, setIsLogoutSuccessModalOpen] =
     React.useState(false)
 
-  // Atualiza estado em tempo real ao mudar o cookie
-  React.useEffect(() => {
-    function checkAuth() {
-      setIsLogged(document.cookie.includes('auth=true'))
-    }
-    checkAuth()
-    const interval = setInterval(checkAuth, 500)
-    return () => clearInterval(interval)
-  }, [])
+  const isLogged = status === 'authenticated'
 
   function handleSignOut() {
-    if (typeof window !== 'undefined') {
-      document.cookie = 'auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-      setIsLogged(false)
-      // Abre o modal de sucesso antes de redirecionar
-      setIsLogoutSuccessModalOpen(true)
-    }
+    // Abre o modal de sucesso antes de fazer logout
+    setIsLogoutSuccessModalOpen(true)
   }
 
   function handleLogoutSuccess() {
     setIsLogoutSuccessModalOpen(false)
     // Pequeno delay para suavizar a transição
     setTimeout(() => {
-      window.location.href = '/'
+      signOut({ callbackUrl: '/' })
     }, 300)
   }
 

@@ -1,4 +1,5 @@
 import { Header } from '@/components/layout/header'
+import { AuthProvider } from '@/components/providers/auth-provider'
 import { ActiveThemeProvider } from '@/components/themes/theme-active'
 import { ThemeProvider } from '@/components/themes/theme-provider'
 import { TanStackProviders } from '@/components/ui/query-provider'
@@ -95,15 +96,17 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ActiveThemeProvider initialTheme={activeThemeValue}>
-            <Header />
-            <main className="ls:px-8 mx-auto mt-16 flex max-w-7xl flex-1 flex-col border-r border-l px-4 sm:px-6">
-              <TanStackProviders>
-                <WelcomeBanner />
-                {children}
-              </TanStackProviders>
-            </main>
-          </ActiveThemeProvider>
+          <AuthProvider>
+            <ActiveThemeProvider initialTheme={activeThemeValue}>
+              <Header />
+              <main className="ls:px-8 mx-auto mt-16 flex max-w-7xl flex-1 flex-col border-r border-l px-4 sm:px-6">
+                <TanStackProviders>
+                  <WelcomeBanner />
+                  {children}
+                </TanStackProviders>
+              </main>
+            </ActiveThemeProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

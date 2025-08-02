@@ -1,5 +1,6 @@
 'use client'
 
+import { ProtectedRoute } from '@/components/auth/protected-route'
 import { CreateCustomerForm } from '@/components/forms/create-customers-form'
 import { CustomerTable } from '@/components/table/customer-table'
 import { Separator } from '@/components/ui/separator'
@@ -31,20 +32,22 @@ export default function DashboardPage() {
   }, [])
 
   return (
-    <section className="relative mt-3 mb-9 space-y-3">
-      <div className="space-y-2">
-        {tokenError && (
-          <p className="text-red-500">Erro ao obter token: {tokenError}</p>
-        )}
-        {accessToken && <CreateCustomerForm accessToken={accessToken} />}
-      </div>
+    <ProtectedRoute>
+      <section className="relative mt-3 mb-9 space-y-3">
+        <div className="space-y-2">
+          {tokenError && (
+            <p className="text-red-500">Erro ao obter token: {tokenError}</p>
+          )}
+          {accessToken && <CreateCustomerForm accessToken={accessToken} />}
+        </div>
 
-      <Separator orientation="horizontal" />
+        <Separator orientation="horizontal" />
 
-      <div className="space-y-2">
-        <h1>Tabela de Consulta e Visualização</h1>
-        {accessToken && <CustomerTable accessToken={accessToken} />}
-      </div>
-    </section>
+        <div className="space-y-2">
+          <h1>Tabela de Consulta e Visualização</h1>
+          {accessToken && <CustomerTable accessToken={accessToken} />}
+        </div>
+      </section>
+    </ProtectedRoute>
   )
 }

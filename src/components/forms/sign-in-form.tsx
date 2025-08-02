@@ -20,45 +20,55 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Cookies from 'js-cookie'
 import { CheckCircle, Eye, EyeOff, LogIn } from 'lucide-react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const loginSchema = z.object({
-  username: z.string().min(1, 'Usuário obrigatório'),
+  email: z.string().min(1, 'Email/Usuário obrigatório'),
   password: z.string().min(1, 'Senha obrigatória'),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
 
-const login = process.env.NEXT_PUBLIC_USERNAME
-const senha = process.env.NEXT_PUBLIC_PASSWORD
-
 export function SignInForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoginSuccessModalOpen, setIsLoginSuccessModalOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const [error, setError] = useState('')
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   })
 
-  function onSubmit(data: LoginFormData) {
-    const { username, password } = data
-    if (username === login && password === senha) {
-      Cookies.set('auth', 'true')
-      setError('')
-      // Abre o modal de sucesso antes de redirecionar
-      setIsLoginSuccessModalOpen(true)
-    } else {
-      setError('Credenciais inválidas')
+  async function onSubmit(data: LoginFormData) {
+    setIsLoading(true)
+    setError('')
+
+    try {
+      const result = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Credenciais inválidas. Verifique seu usuário e senha.')
+      } else {
+        // Login bem-sucedido
+        setIsLoginSuccessModalOpen(true)
+      }
+    } catch (error) {
+      setError('Erro interno. Tente novamente.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -81,7 +91,7 @@ export function SignInForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Usuário</FormLabel>
@@ -135,8 +145,8 @@ export function SignInForm() {
                 <p className="text-sm font-medium text-red-500">{error}</p>
               )}
 
-              <Button type="submit" className="w-full">
-                Entrar
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? 'Entrando...' : 'Entrar'}
               </Button>
             </form>
           </Form>
