@@ -164,7 +164,7 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
 
   return (
     <>
-      <Card className="border-border bg-background mx-auto max-w-3xl rounded-2xl border shadow-xl">
+      <Card className="border-border bg-background mx-auto max-w-full rounded-2xl border shadow-xl">
         <CardHeader>
           <CardTitle className="text-foreground text-center text-2xl font-bold">
             Cadastrar Cliente
