@@ -73,7 +73,7 @@ export default function ListPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-start justify-between space-y-3 md:flex-row md:items-center">
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <Users className="text-primary h-8 w-8" />
@@ -96,7 +96,10 @@ export default function ListPage() {
           </Button>
 
           <Link href="/dashboard/registration">
-            <Button size="sm" className="flex items-center space-x-2">
+            <Button
+              size="sm"
+              className="flex items-center space-x-2 text-xs md:text-sm"
+            >
               <Users className="h-4 w-4" />
               <span>Novo Cliente</span>
             </Button>
