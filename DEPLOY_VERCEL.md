@@ -8,34 +8,43 @@ A aplicação está pronta para deploy na Vercel com as seguintes implementaçõ
 - ✅ NextAuth.js configurado
 - ✅ Middleware de proteção implementado
 - ✅ Rotas protegidas funcionando
-- ✅ Credenciais: `asoec@2025` / `asoec@2025`
+- ✅ **Usa as credenciais já configuradas na Vercel**: `asoec` / `asoec@2025`
 
 ### 📁 Estrutura de Arquivos
 - ✅ `not-found.tsx` criado (correção de build)
-- ✅ Variáveis de ambiente configuradas
+- ✅ **Reutiliza variáveis de ambiente já existentes**
 - ✅ Dependências instaladas corretamente
 
 ## 🔧 Configuração na Vercel
 
-### 1. Variáveis de Ambiente Obrigatórias
+### 1. Variáveis de Ambiente Já Existentes
 
-No painel da Vercel, adicione as seguintes variáveis:
+✅ **JÁ CONFIGURADAS na Vercel**:
+```
+NEXT_PUBLIC_USERNAME=asoec
+NEXT_PUBLIC_PASSWORD=asoec@2025
+NEXT_PUBLIC_CELCOIN_CLIENT_ID=...
+NEXT_PUBLIC_CELCOIN_CLIENT_SECRET=...
+```
 
+### 2. Variáveis Adicionais Necessárias
+
+**ADICIONAR estas variáveis no painel da Vercel**:
 ```
 NEXTAUTH_SECRET=uma-chave-secreta-muito-forte-e-aleatoria-de-32-caracteres
 NEXTAUTH_URL=https://SEU-PROJETO.vercel.app
 ```
 
-### 2. Deploy Steps
+### 3. Deploy Simplificado
 
-1. **Conecte o repositório GitHub à Vercel**
-2. **Configure as variáveis de ambiente** no painel da Vercel
+1. **As variáveis existentes serão reutilizadas**
+2. **Adicione apenas NEXTAUTH_SECRET e NEXTAUTH_URL**
 3. **Deploy automático** será realizado
 
-### 3. Após o Deploy
+### 4. Após o Deploy
 
 1. **Teste a proteção de rota**: Acesse `/dashboard` diretamente
-2. **Teste o login**: Use `asoec@2025` / `asoec@2025`
+2. **Teste o login**: Use as credenciais já configuradas: `asoec` / `asoec@2025`
 3. **Verificar redirecionamentos**: Deve funcionar corretamente
 
 ## 🛡️ Segurança em Produção
