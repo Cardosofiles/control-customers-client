@@ -9,7 +9,7 @@
 - **Modais de sucesso** - Padrões de Arquitetura
 
 - **Feature-Based Organization** - Componentes organizados por funcionalidade
-- **Authentication First** - Siste## 🔒 Segurança
+- **Authentication First** - Sistema de 🔒 Segurança
 
 ### Práticas Implementadas
 
