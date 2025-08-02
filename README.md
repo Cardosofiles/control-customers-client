@@ -6,7 +6,7 @@
 
 - **Login NextAuth** - Interface elegante com validação robusta
 - **Feedback em tempo real** - Validação instantânea de credenciais
-- **Modais de suc### Padrões de Arquitetura
+- \*\*Modais de suc### Padrões de Arquitetura
 
 - **Feature-Based Organization** - Componentes organizados por funcionalidade
 - **Authentication First** - Siste## 🔒 Segurança
@@ -37,11 +37,11 @@
 - **Tabela de Clientes** - Listagem completa com ações CRUD
 - **Filtros e Busca** - Encontre clientes rapidamente
 - **Modais de Confirmação** - Ações seguras com feedback visualtps://img.shields.io/badge/Next.js-15.4.2-black)
-![React](https://img.shields.io/badge/React-19-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![NextAuth](https://img.shields.io/badge/NextAuth.js-5.0-green)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-cyan)
-![License](https://img.shields.io/badge/License-MIT-green)
+  ![React](https://img.shields.io/badge/React-19-blue)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+  ![NextAuth](https://img.shields.io/badge/NextAuth.js-5.0-green)
+  ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-cyan)
+  ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Destaques da Aplicação
 
@@ -215,7 +215,8 @@ CELCOIN_CLIENT_ID=seu_client_id
 CELCOIN_CLIENT_SECRET=seu_client_secret
 ```
 
-> **⚠️ Importante**: 
+> **⚠️ Importante**:
+>
 > - **NEXTAUTH_SECRET** é obrigatório para a autenticação funcionar
 > - Gere uma chave forte com: `openssl rand -base64 32`
 > - Sem as credenciais Celcoin, a aplicação funcionará com dados simulados
@@ -331,19 +332,21 @@ pnpm start
 
 1. **Conecte o repositório** à sua conta Vercel
 2. **Configure as variáveis de ambiente** no painel Vercel:
+
    ```
    # Obrigatórias para NextAuth
    NEXTAUTH_SECRET=sua-chave-secreta-muito-forte-de-32-caracteres
    NEXTAUTH_URL=https://seu-projeto.vercel.app
-   
+
    # Credenciais de demo (já configuradas)
    NEXT_PUBLIC_USERNAME=asoec
    NEXT_PUBLIC_PASSWORD=asoec@2025
-   
+
    # API Celcoin (opcional)
    CELCOIN_CLIENT_ID=seu_client_id
    CELCOIN_CLIENT_SECRET=seu_client_secret
    ```
+
 3. **Deploy automático** será executado
 4. **Teste a autenticação** com as credenciais configuradas
 
