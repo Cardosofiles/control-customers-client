@@ -17,6 +17,7 @@ import { useCreateCustomer } from '@/services/celcoin/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { CheckCircle, Trash } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -81,6 +82,12 @@ interface CreateCustomerFormProps {
 export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [createdCustomerName, setCreatedCustomerName] = useState('')
+
+  const router = useRouter()
+
+  const handleViewClient = () => {
+    router.push('/dashboard/list')
+  }
 
   const {
     register,
@@ -421,16 +428,25 @@ export function CreateCustomerForm({ accessToken }: CreateCustomerFormProps) {
                 {createdCustomerName}
               </span>{' '}
               foi cadastrado com sucesso no sistema. Você pode visualizá-lo na
-              tabela de clientes abaixo.
+              tabela de clientes.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="sm:justify-center">
-            <Button
-              onClick={() => setIsSuccessModalOpen(false)}
-              className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary/70 w-full cursor-pointer"
-            >
-              Continuar
-            </Button>
+          <DialogFooter className="flex flex-col">
+            <div className="flex w-full flex-col space-y-2">
+              <Button
+                onClick={handleViewClient}
+                className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary w-full cursor-pointer"
+              >
+                Visualizar Cliente
+              </Button>
+
+              <Button
+                onClick={() => setIsSuccessModalOpen(false)}
+                className="dark:bg-primary/10 dark:hover:bg-primary/50 bg-primary/70 w-full cursor-pointer"
+              >
+                Cadastrar Novo Cliente
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
